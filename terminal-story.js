@@ -190,7 +190,14 @@ var IMG={
   amit:    {src:'assets/img/team/amit-joshi.jpg'},
   pawan:   {src:'assets/img/team/pawan-kumar-jain.jpg'},
   prasun:  {src:'assets/img/team/prasun-mishra.jpg'},
-  shivhari:{src:'assets/img/team/shivhari-garg.jpg'}
+  shivhari:{src:'assets/img/team/shivhari-garg.jpg'},
+  shot1:   {src:'assets/img/work/exim-routes.png'},
+  shot2:   {src:'assets/img/work/humanities-app.png'},
+  shot3:   {src:'assets/img/work/ifh-voice-audit.png'},
+  shot4:   {src:'assets/img/work/peppolbridge.jpg'},
+  shot5:   {src:'assets/img/work/jinaconnect.jpg'},
+  shot6:   {src:'assets/img/work/claudally.jpg'},
+  shot7:   {src:'assets/img/work/gst365.jpg'}
 };
 var imgsSettled=false,imgBlocked=false;
 (function(){
@@ -729,7 +736,40 @@ function drawMock(x,y,w,h,kind,url){ /* kind = [[in],[built],[out]] */
     if(f4<2){ctx.font=font(700,24);ctx.fillStyle=COL.B;ctx.fillText('→',bx3+bw3+14,iy+68);}
   }
 }
-function mkScreen(idx,title,setup,build2,result,statB,statL,nextHref,svcL,svcH){
+/* real product still inside the browser chrome; falls back to the flow mock */
+function drawShot(x,y,w,h,kind,url,key,live){
+  var im=imgOf(key);
+  if(!im){drawMock(x,y,w,h,kind,url);}
+  else{
+    ctx.fillStyle='#0d0a16';rr(x,y,w,h,10);ctx.fill();
+    ctx.strokeStyle='rgba(255,190,140,.25)';ctx.lineWidth=1.5;rr(x+.5,y+.5,w-1,h-1,10);ctx.stroke();
+    ctx.fillStyle='rgba(255,236,220,.06)';rr(x,y,w,30,10);ctx.fill();
+    for(var d3=0;d3<3;d3++){ctx.fillStyle=['#ff5f57','#febc2e','#28c840'][d3];ctx.beginPath();ctx.arc(x+18+d3*16,y+15,4.5,0,7);ctx.fill();}
+    ctx.font='400 11px "Space Mono", monospace';ctx.fillStyle=COL.dim;ctx.fillText(url,x+70,y+19);
+    var cy=y+30,chh=h-30,iw=im.naturalWidth,ih=im.naturalHeight;
+    ctx.save();rr(x,y,w,h,10);ctx.clip();
+    if(ih>iw){ /* portrait app shot → three storyboard panes (top/middle/bottom) */
+      var pw=(w-16)/3;
+      for(var p3=0;p3<3;p3++){
+        var sh2=Math.min(ih,iw*(chh/pw));
+        ctx.drawImage(im,0,(ih-sh2)*(p3*0.5),iw,sh2,x+p3*(pw+8),cy,pw,chh);
+      }
+    }else{ /* landscape → widescreen cover crop, biased to the hero */
+      var s6=Math.max(w/iw,chh/ih),sw6=w/s6,sh6=chh/s6;
+      ctx.drawImage(im,(iw-sw6)/2,Math.min(ih-sh6,ih*0.06),sw6,sh6,x,cy,w,chh);
+    }
+    var g6=ctx.createLinearGradient(0,cy+chh-56,0,cy+chh);
+    g6.addColorStop(0,'rgba(5,2,8,0)');g6.addColorStop(1,'rgba(5,2,8,.6)');
+    ctx.fillStyle=g6;ctx.fillRect(x,cy+chh-56,w,56);
+    ctx.restore();
+  }
+  ctx.font='700 10px "Space Mono", monospace';setLS('1px');
+  var tag=live?'● LIVE — CLICK TO VISIT':'● PRIVATE DEPLOYMENT';
+  ctx.fillStyle=live?'#5bff9e':COL.dim;
+  ctx.fillText(tag,x+w-ctx.measureText(tag).width-14,y+19);setLS('0px');
+  if(live&&curLinks)curLinks.push({x:x,y:y,w:w,h:h,href:live,label:'Visit live site ↗'});
+}
+function mkScreen(idx,title,setup,build2,result,statB,statL,nextHref,svcL,svcH,shotKey,live){
   return function(LW){
     var H2=700;
     /* cinema frame */
@@ -754,7 +794,7 @@ function mkScreen(idx,title,setup,build2,result,statB,statL,nextHref,svcL,svcH){
      [['Show-cause','notices'],['Issues → grounds','→ precedents'],['Signable draft','in hours']]];
     var KIND=FLOWS[idx-1]||FLOWS[0];
     var URLS=['jinacode.systems/eris','jinacode.systems/humanities','jinacode.systems/ifh-voice','peppolbridge.com','jinaconnect.jinacode.systems','claudally.jinacode.systems','gst365.co.in'];
-    drawMock(56,128,LW-112,230,KIND,URLS[idx-1]||'');
+    drawShot(56,128,LW-112,246,KIND,URLS[idx-1]||'',shotKey,live);
     /* three acts */
     var acts=[['SETUP',setup],['BUILD',build2],['RESULT',result]];
     var cw=(LW-112-40)/3;
@@ -878,13 +918,13 @@ function buildAtlas(){
    {id:'workHero',draw:mkBigLine('SHIPPED','Built inside.\nShipped for real.',true,'Seven reels, filmed in production — real systems, real clients, real numbers.'),hw:1.85},
    {id:'workA',draw:mkCases([['ERIS · Exim Routes','IPO-stage trade intelligence platform.'],['Institute of Humanities','Digital learning, web + mobile.'],['IFH Voice Audit','Calls → structured audit intelligence.']],1),hw:1.45},
    {id:'workB',draw:mkCases([['PeppolBridge','ERP→Peppol connector layer, 5 markets.'],['JinaConnect','Open-source multi-channel CPaaS.'],['Claudally','Drive Tally Prime with Claude.'],['GST365','Litigation intelligence for tax practices.']],4),hw:1.45},
-   {id:'scr1',draw:mkScreen(1,'ERIS — trade intelligence','An IPO-bound trade platform needed its intelligence backbone.','Secure APIs, OCR pipelines, automation — owned end to end.','Jan ’24 → IPO-stage. Zero rewrites.','23 mo','one team, no rewrites','case2.html','Service: Web & Mobile →','product.html#webmobile'),hw:2.60,film:true},
-   {id:'scr2',draw:mkScreen(2,'Humanities, built to endure','Dense humanities curricula needed real depth, web + mobile.','Course architecture, learner journeys, faculty CMS.','A stable academic core that evolves without disruption.','Web·App','one academic core','case3.html','Service: Web & Mobile →','product.html#webmobile'),hw:2.60,film:true},
-   {id:'scr3',draw:mkScreen(3,'Voice audits, automated','Manual call audits: slow, fatiguing, inconsistent.','Speech-to-text + NLP map calls straight to questionnaires.','Auditors interpret insights instead of re-listening.','Hrs→min','per audit turnaround','case4.html','Service: Voice AI →','product.html#voice'),hw:2.60,film:true},
-   {id:'scr4',draw:mkScreen(4,'PeppolBridge — e-invoicing','Every Peppol mandate hits the same wall: client ERPs.','40+ connectors, one canonical model, country rule-packs.','UAE · MY · BE · OM · QA on one platform.','7 days','access → first live invoice','case5.html','Service: Web & Mobile →','product.html#webmobile'),hw:2.60,film:true},
-   {id:'scr5',draw:mkScreen(5,'JinaConnect — open CPaaS','Five channels, a dozen providers, zero unity.','One API: WhatsApp, Voice, Telegram, SMS, RCS — plus MCP.','Open-source, self-hosted, white-labeled by agencies.','13','MCP tools for AI agents','case6.html','Service: WhatsApp →','product.html#wa'),hw:2.60,film:true},
-   {id:'scr6',draw:mkScreen(6,'Claudally — Tally × Claude','Your books, locked inside Tally Prime.','An MCP server: reports, vouchers, GST — in plain language.','Local-first, deterministic, AGPL open source.','5 min','install → talking to books','case7.html','Service: Agentic →','product.html#agentic'),hw:2.60,film:true},
-   {id:'scr7',draw:mkScreen(7,'GST365 — litigation intel','Every show-cause notice lands on the same senior desks.','Issues → grounds → precedent maps → a signable draft.','Two decades of doctrine, delivered as software.','Hours','to a signable first draft','work.html','Service: Chat & RAG →','product.html#rag'),hw:2.60,film:true},
+   {id:'scr1',draw:mkScreen(1,'ERIS — trade intelligence','An IPO-bound trade platform needed its intelligence backbone.','Secure APIs, OCR pipelines, automation — owned end to end.','Jan ’24 → IPO-stage. Zero rewrites.','23 mo','one team, no rewrites','case2.html','Service: Web & Mobile →','product.html#webmobile','shot1',null),hw:2.60,film:true},
+   {id:'scr2',draw:mkScreen(2,'Humanities, built to endure','Dense humanities curricula needed real depth, web + mobile.','Course architecture, learner journeys, faculty CMS.','A stable academic core that evolves without disruption.','Web·App','one academic core','case3.html','Service: Web & Mobile →','product.html#webmobile','shot2',null),hw:2.60,film:true},
+   {id:'scr3',draw:mkScreen(3,'Voice audits, automated','Manual call audits: slow, fatiguing, inconsistent.','Speech-to-text + NLP map calls straight to questionnaires.','Auditors interpret insights instead of re-listening.','Hrs→min','per audit turnaround','case4.html','Service: Voice AI →','product.html#voice','shot3',null),hw:2.60,film:true},
+   {id:'scr4',draw:mkScreen(4,'PeppolBridge — e-invoicing','Every Peppol mandate hits the same wall: client ERPs.','40+ connectors, one canonical model, country rule-packs.','UAE · MY · BE · OM · QA on one platform.','7 days','access → first live invoice','case5.html','Service: Web & Mobile →','product.html#webmobile','shot4','https://peppolbridge.com'),hw:2.60,film:true},
+   {id:'scr5',draw:mkScreen(5,'JinaConnect — open CPaaS','Five channels, a dozen providers, zero unity.','One API: WhatsApp, Voice, Telegram, SMS, RCS — plus MCP.','Open-source, self-hosted, white-labeled by agencies.','13','MCP tools for AI agents','case6.html','Service: WhatsApp →','product.html#wa','shot5','https://jinaconnect.jinacode.systems'),hw:2.60,film:true},
+   {id:'scr6',draw:mkScreen(6,'Claudally — Tally × Claude','Your books, locked inside Tally Prime.','An MCP server: reports, vouchers, GST — in plain language.','Local-first, deterministic, AGPL open source.','5 min','install → talking to books','case7.html','Service: Agentic →','product.html#agentic','shot6','https://claudally.jinacode.systems'),hw:2.60,film:true},
+   {id:'scr7',draw:mkScreen(7,'GST365 — litigation intel','Every show-cause notice lands on the same senior desks.','Issues → grounds → precedent maps → a signable draft.','Two decades of doctrine, delivered as software.','Hours','to a signable first draft','work.html','Service: Chat & RAG →','product.html#rag','shot7','https://gst365.co.in'),hw:2.60,film:true},
    {id:'storyHero',draw:mkLog('OUR STORY · THE BELIEF','Reduce complexity.\nNever add to it.',true,'Jina Code Systems was founded on that one belief. Product engineering, systems thinking and applied AI — software that is thoughtful, resilient, and built to serve real needs for the long term.','FOUNDING PRINCIPLE — LOCKED'),hw:1.75},
    {id:'storyLesson',draw:mkLog('THE TURNING POINT','Finished is not\nthe same as endures.',true,'In our early months we optimized for delivery speed — and met the hidden cost of rushed decisions. It reshaped us: architecture, ownership, calm execution, systems that stay stable long after launch.','LESSON COMMITTED — BUILD TO ENDURE'),hw:1.75},
    {id:'storyFounders',draw:mkPeople([
@@ -1842,6 +1882,8 @@ function updateHover(){
     hovP=h.p;hovL=h.l;
     var L=panels[h.p].links[h.l];
     hitlink.href=L.href;hitlink.title=L.label;
+    if(/^https?:/i.test(L.href)){hitlink.target='_blank';hitlink.rel='noopener';}
+    else{hitlink.target='';hitlink.rel='';}
     hitlink.style.left=(lastCX-30)+'px';
     hitlink.style.top=(lastCY-30)+'px';
     hitlink.style.width='60px';hitlink.style.height='60px';
@@ -1923,6 +1965,7 @@ glc.addEventListener('click',function(e){
   if(r2&&VIRTUAL[r2])return;
   var a=document.createElement('a');
   a.href=href2;a.style.display='none';
+  if(/^https?:/i.test(href2)){a.target='_blank';a.rel='noopener';}
   document.body.appendChild(a);a.click();a.remove();
   navLock=true;glitch=1.0;setTimeout(function(){navLock=false;},600);
 });
