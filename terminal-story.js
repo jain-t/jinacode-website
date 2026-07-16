@@ -176,6 +176,8 @@ var mouseX=.5,mouseY=.5,msX=.5,msY=.5;
 var booted=false,fontsReady=false,navLock=false,atlasReady=false;
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var curBeat=-1,curDay=-999;
+/* pods carousel: slide the three tier boards sideways */
+var podBeatI=-1,podSpan=1.84,podOffT=0,podOffC=0,podHintDone=false,podDragged=false;
 var cam={pos:[0,1.05,0.6],fwd:[0,0,1],right:[1,0,0],up:[0,1,0]};
 var panels=[],activeIdx=[],hovP=-1,hovL=-1;
 
@@ -1119,8 +1121,7 @@ function placePanels(){
   for(var pa2=0;pa2<panels.length;pa2++){panels[pa2].pos=[0,-99,-999];panels[pa2].z=-999;}
   for(var i=0;i<BEATS.length;i++){
     var b=BEATS[i], vpz=b.z-(b.rd||READ_D);
-    var ids = b.panel==='pods' ? (isMob?['pod1']:['pod0','pod1','pod2']) : [b.panel];
-    if(b.panel==='pods'&&isMob){/* mobile: only the featured pod + others reachable via product page */}
+    var ids = b.panel==='pods' ? ['pod0','pod1','pod2'] : [b.panel];
     /* billboards alternate roadside; hero/cta/footer/trust/junctions stay center */
     var center=(b.panel==='hero'||b.panel==='cta'||b.panel==='footer'||b.panel==='trust'||ids.length===3);
     var side=center?0:(i%2?1:-1);
@@ -1136,13 +1137,10 @@ function placePanels(){
       /* face oncoming traffic (a few units before the seat) so the approach is readable */
       orientPanel(p,vpz-3.2, ids.length===3?(1-k)*0.18:0);
       p.beat=i;
-      if(ids.length===1||k===1)b.tgt=p.pos; /* seat look-at target */
+      if(ids.length===3){p.podBase=p.pos[0];podBeatI=i;podSpan=p.hw*2+0.28;}
+      if(ids.length===1)b.tgt=p.pos; /* seat look-at target */
+      else if(k===1)b.tgt=[p.pos[0],p.pos[1],p.pos[2]]; /* pods: static copy — carousel must not drag the camera */
     }
-  }
-  /* mobile: pods panel = pod1 only; also place pod0/pod2 far away hidden */
-  if(isMob){
-    var hid=['pod0','pod2'];
-    for(var h2=0;h2<2;h2++){var pp=panelById(hid[h2]);if(pp){pp.pos=[999,999,999];pp.z=-99;}}
   }
   /* branded shops line every road */
   var SHOPS=[[57,-1,0],[93,1,1],[129,-1,2],[165,1,3],[201,-1,4]];
@@ -2110,8 +2108,33 @@ function handleTap(cx,cy,fromTouch){
 var tapHandled=false;
 glc.addEventListener('click',function(e){
   if(tapHandled){tapHandled=false;return;}
+  if(podDragged){podDragged=false;return;}
   handleTap(e.clientX,e.clientY,false);
 });
+/* ---- pods carousel input: swipe (touch), drag or sideways wheel (mouse) ---- */
+var podTX=-1,pmDown=false,pmX=0,pmAcc=0;
+glc.addEventListener('touchmove',function(e){
+  if(curBeat!==podBeatI){podTX=-1;return;}
+  var t=e.changedTouches[0];
+  if(podTX<0){podTX=t.clientX;return;}
+  podOffT=clamp(podOffT+(t.clientX-podTX)*(podSpan/260),-podSpan,podSpan);
+  podTX=t.clientX;
+},{passive:true});
+glc.addEventListener('touchend',function(){podTX=-1;},{passive:true});
+glc.addEventListener('mousedown',function(e){if(curBeat===podBeatI){pmDown=true;pmX=e.clientX;pmAcc=0;}});
+window.addEventListener('mousemove',function(e){
+  if(!pmDown)return;
+  var dx=e.clientX-pmX;pmX=e.clientX;pmAcc+=Math.abs(dx);
+  if(pmAcc>8)podDragged=true;
+  podOffT=clamp(podOffT+dx*(podSpan/420),-podSpan,podSpan);
+});
+window.addEventListener('mouseup',function(){pmDown=false;});
+glc.addEventListener('wheel',function(e){
+  if(curBeat===podBeatI&&Math.abs(e.deltaX)>Math.abs(e.deltaY)){
+    e.preventDefault();
+    podOffT=clamp(podOffT-e.deltaX*(podSpan/420),-podSpan,podSpan);
+  }
+},{passive:false});
 /* touch taps fire from touchend directly — momentum scroll swallows click events */
 var tSX=0,tSY=0,tST=0;
 glc.addEventListener('touchstart',function(e){
@@ -2361,6 +2384,10 @@ function updHUD(st){
     osdName.classList.remove('osd-flash');void osdName.offsetWidth;osdName.classList.add('osd-flash');
     var fp5=panelById(BEATS[effK].panel);
     if(fp5&&fp5.film){reelT0=performance.now();showToast('▶ NOW PLAYING — SCROLL TO SCRUB');}
+    if(BEATS[effK].panel==='pods'&&!podHintDone){
+      podHintDone=true;
+      showToast('⟷ '+(GFXQ>0.5?'DRAG SIDEWAYS':'SWIPE SIDEWAYS')+' TO COMPARE ALL THREE PODS',4200);
+    }
     if(effK===NB-1)showToast('STEER:  ← '+ROUTES[curRoute].L.toUpperCase()+'   ·   '+ROUTES[curRoute].R.toUpperCase()+' →');
   }
   progFill.style.transform='scaleX('+clamp(Js,0,1)+')';
@@ -2378,6 +2405,15 @@ function frame(tms){
   if(!gl||!prog)return;
   var dt=Math.min(50,tms-lastT);lastT=tms;
   bootTick(tms);
+  /* pods carousel: ease toward the drag target; recenter away from the beat */
+  if(podBeatI>=0){
+    if(curBeat!==podBeatI)podOffT=0;
+    podOffC+=(podOffT-podOffC)*clamp(dt*0.010,0,1);
+    for(var pq=0;pq<3;pq++){
+      var PPQ=panelById('pod'+pq);
+      if(PPQ&&PPQ.podBase!==undefined&&PPQ.z>-90)PPQ.pos[0]=PPQ.podBase+podOffC;
+    }
+  }
   /* scroll → journey */
   if(swapLock>0){window.scrollTo(0,0);swapLock-=dt;Jt=0;}
   else{
