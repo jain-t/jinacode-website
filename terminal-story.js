@@ -71,9 +71,11 @@ var ROUTES={
  ]},
  about:{label:'ABOUT',L:'story',R:'contact',tint:[0.40,0.95,0.58],css:['#5bff9e','#4be3a8','#b8ff5b'],beats:[
   {z:5, phase:'WHO WE ARE',panel:'aboutHero',look:[0,0.01,0,0.42,0]},
-  {z:11,phase:'HOW WE WORK',panel:'aboutA', look:[0.05,0,0.01,0,0]},
-  {z:17,id:'principles',phase:'PRINCIPLES', panel:'aboutB', look:[-0.05,0,-0.01,0,0]},
-  {z:23,phase:'JUNCTION',   panel:'jAbout', look:[0,0.02,0,0.30,0]}
+  {z:11,id:'principles',phase:'PRINCIPLES 01·02',panel:'aboutA',look:[0.05,0,0.01,0,0]},
+  {z:17,phase:'PRINCIPLES 03·04',panel:'aboutB',look:[-0.05,0,-0.01,0,0]},
+  {z:23,phase:'PRINCIPLES 05·06',panel:'aboutC',look:[0.05,0,0.01,0,0]},
+  {z:29,phase:'THE BAR',panel:'aboutBar',look:[-0.05,0,-0.01,0,0]},
+  {z:35,phase:'JUNCTION',panel:'jAbout',look:[0,0.02,0,0.30,0]}
  ]},
  story:{label:'OUR STORY',L:'about',R:'contact',tint:[1.0,0.80,0.48],css:['#ffd27b','#ffb35b','#ff8f5b'],beats:[
   {z:5, id:'belief',  phase:'THE BELIEF',       panel:'storyHero',    look:[0,0.01,0,0.3,0]},
@@ -1009,8 +1011,10 @@ function buildAtlas(){
    {id:'storyCreed',draw:(function(){var f=mkLog('THE CREED','We take responsibility\nfor what we build.',true,'A small, focused crew that ships work we can stand behind — systems that quietly do their job well, day after day.','CREW STATUS: RELENTLESS');return function(LW){var h=f(LW);var b1=button(44,h-16,'Book a consultation','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');button(44+b1+14,h-16,'Our principles →','about.html#principles','g');return h+56;};})(),hw:1.75},
    {id:'workCTA',draw:mkLog('NEXT SLOT','Want to be\nthe next one?',true,'One pod slot opens each quarter.','SLOT STATUS: OPEN'),hw:1.70},
    {id:'aboutHero',draw:mkBigLine('WHO WE ARE','The best software\nis built inside.',true,'Proximity beats process. Ownership beats advice.'),hw:1.85},
-   {id:'aboutA',draw:mkCards([['Ship weekly','…or explain why.','01'],['Senior only','No bench. Ever.','02'],['Leave you stronger','The muscle memory stays.','03']]),hw:1.35},
-   {id:'aboutB',draw:(function(){var f=mkCards([['Price the outcome','Not the hours.','04'],['Production is the point','Demos don’t count.','05'],['Say the true thing','Especially when it’s hard.','06']]);return function(LW){var h=f(LW);button(32,h-16,'Our story →','story.html','g');return h+56;};})(),hw:1.35},
+   {id:'aboutA',draw:mkCards([['Ship weekly — or explain why','Momentum is the method. If a week passes without something you can click, we raise it ourselves — you never have to chase us.','01'],['Senior only','We don’t learn on your budget. Everyone here has built and run systems at real scale — and stays for the whole engagement. No bench, no swaps.','02']]),hw:1.35},
+   {id:'aboutB',draw:mkCards([['Leave you stronger','Success isn’t your dependence on us. We document and pair as we go, so your team owns and extends everything after we step away.','03'],['Price the outcome','Set packages, fixed prices, honest changes. You should never have to wonder what a week of our work is going to cost.','04']]),hw:1.35},
+   {id:'aboutC',draw:mkCards([['Production is the point','A demo isn’t done. Testing, reliability, monitoring, cost — the unglamorous last stretch is the actual job, and it’s the part we’re known for.','05'],['Say the true thing','If we’re the wrong tool for the job, we say so — even on the first call. We’d rather lose a contract than sell you something that won’t work.','06']]),hw:1.35},
+   {id:'aboutBar',draw:(function(){var f=mkLog('THE BAR WE HOLD','Principles are\nwhat you ship.',true,'Anyone can paint six nice lines on a billboard. We put ours in writing because clients hold us to them — every week, in the demo.','PRINCIPLES: ENFORCED WEEKLY');return function(LW){var h=f(LW);var b1=button(44,h-16,'Our story →','story.html','g');button(44+b1+14,h-16,'✉ Email us','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');return h+56;};})(),hw:1.75},
    {id:'contactB',draw:bContact,hw:1.70},
    {id:'jHome',draw:mkJunction('work','product'),hw:1.35,lw:700,gate:true},
    {id:'jProduct',draw:mkJunction('work','contact'),hw:1.35,lw:700,gate:true},
@@ -1890,6 +1894,9 @@ function resize(){
   isMob=W<720;
   asp=W/H;
   glc.width=Math.round(W*dpr);glc.height=Math.round(H*dpr);
+  /* pin CSS size to the same numbers the ray math uses — iOS's dynamic
+     toolbar makes 100vh taller than innerHeight, which skewed every tap */
+  glc.style.width=W+'px';glc.style.height=H+'px';
   spacerScroll=Math.round(NB*H*2.45);
   document.getElementById('spacer').style.height=(H+spacerScroll)+'px';
   if(hint)hint.innerHTML=isMob?'Scroll to ride · tap a board to read <span class="arr">▼</span>'
@@ -3226,6 +3233,8 @@ var T3=(function(){
 
 /* ================= INIT ================= */
 window.addEventListener('resize',resize);
+/* iOS fires visualViewport resizes when the toolbar collapses/expands */
+if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
 /* auto-hide mouse cursor during keyboard/scroll interaction */
 (function(){
   var hideT;
