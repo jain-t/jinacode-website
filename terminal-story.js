@@ -326,7 +326,7 @@ function bHero(LW){
   ctx.font='400 21px Inter, sans-serif';ctx.fillStyle=COL.muted;
   for(var i=0;i<ls.length;i++)ctx.fillText(ls[i],44,y+i*33);
   y+=ls.length*33+30;
-  var b1=button(44,y,'Get started','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  var b1=button(44,y,'Get started','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
   if(44+b1+16+220<LW)button(44+b1+16,y,'See how it works','product.html','g');
   else {y+=66;button(44,y,'See how it works','product.html','g');}
   y+=52+40;
@@ -514,7 +514,7 @@ function mkTier(t){
       y+=28;
     }
     y+=14;
-    button(40,y,t.b,'mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A',t.s,LW-80);
+    button(40,y,t.b,'mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A',t.s,LW-80);
     return y+52+36;
   };
 }
@@ -528,11 +528,11 @@ function bCTA(LW){
   ctx.textAlign='left';
   ctx.font=font(600,17);
   var bw=ctx.measureText('✉ Email us — book an intro call').width+74;
-  button((LW-bw)/2,y,'✉ Email us — book an intro call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  button((LW-bw)/2,y,'✉ Email us — book an intro call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
   y+=52+30;
   ctx.textAlign='center';
   ctx.font='400 12px "Space Mono", monospace';ctx.fillStyle=COL.amber;
-  ctx.fillText('> WRITE TO TAPAN@JINACODE.SYSTEMS — REPLY WITHIN ONE BUSINESS DAY',LW/2,y);
+  ctx.fillText('> WRITE TO DEVELOPERS@JINACODE.SYSTEMS — REPLY WITHIN ONE BUSINESS DAY',LW/2,y);
   ctx.textAlign='left';
   return y+40;
 }
@@ -548,8 +548,8 @@ function bFooter(LW){
   y+=tag.length*23+26;
   var cols=[
     ['SERVICES',[['Voice AI','product.html#voice'],['WhatsApp automation','product.html#wa'],['Chatbots & RAG','product.html#rag'],['Agentic workflows','product.html#agentic'],['Web & mobile','product.html#webmobile'],['Offshore pods','product.html#offshore']]],
-    ['COMPANY',[['The Pod','product.html'],['Pod tiers','product.html#tiers'],['Case reels','work.html'],['About','about.html'],['Our story','story.html'],['Contact','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A']]],
-    ['GET STARTED',[['Book a call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A'],['tapan@jinacode.systems','mailto:tapan@jinacode.systems']]]
+    ['COMPANY',[['The Pod','product.html'],['Pod tiers','product.html#tiers'],['Case reels','work.html'],['About','about.html'],['Our story','story.html'],['Contact','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A']]],
+    ['GET STARTED',[['Book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A'],['developers@jinacode.systems','mailto:developers@jinacode.systems']]]
   ];
   var colW=(LW-88)/3, y0=y, maxR=0;
   for(var c=0;c<3;c++){
@@ -720,9 +720,9 @@ function bContact(LW){
   ctx.font='400 20px Inter, sans-serif';ctx.fillStyle=COL.muted;
   for(var cl9=0;cl9<cls.length;cl9++)ctx.fillText(cls[cl9],44,y+cl9*31);
   y+=cls.length*31+14;
-  button(44,y,'✉ Email us to book a call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  button(44,y,'✉ Email us to book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
   y+=52+26;
-  link(44,y,'tapan@jinacode.systems','mailto:tapan@jinacode.systems');
+  link(44,y,'developers@jinacode.systems','mailto:developers@jinacode.systems');
   return y+22+40;
 }
 /* ---------- service billboard: one board per service on the product road ---------- */
@@ -759,7 +759,7 @@ function mkService(o){ /* {num,name,big,support,checks,stack,statB,statL,reelL,r
     ctx.font='400 14px Inter, sans-serif';ctx.fillStyle=COL.dim;
     ctx.fillText(o.statL,44+ctx.measureText('').width+(function(){ctx.font=font(700,40);var w=ctx.measureText(o.statB).width;ctx.font='400 14px Inter, sans-serif';return w;})()+18,y+13);
     y+=40;
-    var b1=button(44,y,'Book a call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+    var b1=button(44,y,'Book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
     button(44+b1+14,y,o.reelL,o.reelH,'g');
     y+=52;
     if(o.extra){
@@ -991,7 +991,7 @@ function buildAtlas(){
     ['prasun','PM','ADV 02 · DATA & AI','Prasun Mishra','Chief Data & AI Officer, Tavant. Two decades taking enterprise AI from pilot to production at global scale.'],
     ['shivhari','SG','ADV 03 · FINANCE','Shivhari Garg','Chartered Accountant, 35+ years. Audit frameworks and regulation translated into system design.']],46),hw:1.50},
    {id:'storyCrew',draw:bStoryCrew,hw:1.60},
-   {id:'storyCreed',draw:(function(){var f=mkLog('THE CREED','We take responsibility\nfor what we build.',true,'A small, focused crew that ships work we can stand behind — systems that quietly do their job well, day after day.','CREW STATUS: RELENTLESS');return function(LW){var h=f(LW);var b1=button(44,h-16,'Book a consultation','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');button(44+b1+14,h-16,'Our principles →','about.html#principles','g');return h+56;};})(),hw:1.75},
+   {id:'storyCreed',draw:(function(){var f=mkLog('THE CREED','We take responsibility\nfor what we build.',true,'A small, focused crew that ships work we can stand behind — systems that quietly do their job well, day after day.','CREW STATUS: RELENTLESS');return function(LW){var h=f(LW);var b1=button(44,h-16,'Book a consultation','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');button(44+b1+14,h-16,'Our principles →','about.html#principles','g');return h+56;};})(),hw:1.75},
    {id:'workCTA',draw:mkLog('NEXT SLOT','Want to be\nthe next one?',true,'One pod slot opens each quarter.','SLOT STATUS: OPEN'),hw:1.70},
    {id:'aboutHero',draw:mkBigLine('WHO WE ARE','The best software\nis built inside.',true,'Proximity beats process. Ownership beats advice.'),hw:1.85},
    {id:'aboutA',draw:mkCards([['Ship weekly','…or explain why.','01'],['Senior only','No bench. Ever.','02'],['Leave you stronger','The muscle memory stays.','03']]),hw:1.35},
