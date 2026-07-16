@@ -80,8 +80,9 @@ var ROUTES={
   {z:11,id:'lesson',  phase:'THE TURNING POINT',panel:'storyLesson',  look:[0.05,0,0.01,0,0]},
   {z:17,id:'founders',phase:'THE FOUNDERS',     panel:'storyFounders',look:[-0.05,0,-0.01,0,0]},
   {z:23,id:'advisors',phase:'THE ADVISORS',     panel:'storyAdvisors',look:[0.05,0,0.01,0,0]},
-  {z:29,id:'creed',   phase:'THE CREED',        panel:'storyCreed',   look:[-0.05,0,-0.01,0,0]},
-  {z:35,phase:'JUNCTION',panel:'jStory',look:[0,0.02,0,0.30,0]}
+  {z:29,id:'crew',    phase:'THE CREW',         panel:'storyCrew',    look:[-0.05,0,-0.01,0,0]},
+  {z:35,id:'creed',   phase:'THE CREED',        panel:'storyCreed',   look:[0.05,0,0.01,0,0]},
+  {z:41,phase:'JUNCTION',panel:'jStory',look:[0,0.02,0,0.30,0]}
  ]},
  case1:{label:'REEL 01',L:'work',R:'case2',tint:[1.0,0.34,0.36],css:['#ff5b5b','#ff3d6e','#ff7b4b'],beats:[
   {z:6, phase:'NOW SCREENING',panel:'scr1',look:[0,0.02,0,0.45,0],rd:1.5},
@@ -653,6 +654,39 @@ function mkBigLine(tag,big,gradLast,support){
     return y+36;
   };
 }
+/* the whole team on one board: founders + advisors roster */
+function bStoryCrew(LW){
+  var y=56;
+  dayTag(44,y,'THE CREW · FULL ROSTER');y+=54;
+  var s=isMob?36:48, lh=s*1.16;
+  ctx.font=font(700,s);ctx.fillStyle=COL.ink;
+  ctx.fillText('Small crew.',44,y+lh*0.82);
+  ctx.fillStyle=grad(44,y+lh,LW*0.6);
+  ctx.fillText('Senior only.',44,y+lh*1.82);
+  y+=lh*2+28;
+  var R=[
+   ['tapan','TJ','Tapan Jain','FOUNDER · CHIEF EVERYTHING OFFICER'],
+   ['amit','AJ','Amit Joshi','FOUNDER · CHIEF OPERATING OFFICER'],
+   ['pawan','PJ','Pawan Kumar Jain','ADVISOR · GOVERNANCE'],
+   ['prasun','PM','Prasun Mishra','ADVISOR · DATA & AI'],
+   ['shivhari','SG','Shivhari Garg','ADVISOR · FINANCE']
+  ];
+  var cols=isMob?1:2, cw=(LW-88-(cols-1)*18)/cols, ch=96, r2=30;
+  for(var i=0;i<R.length;i++){
+    var cx0=44+(i%cols)*(cw+18), cy0=y+Math.floor(i/cols)*(ch+14);
+    ctx.fillStyle='rgba(255,236,220,0.045)';rr(cx0,cy0,cw,ch,12);ctx.fill();
+    ctx.strokeStyle=COL.stroke;ctx.lineWidth=1;rr(cx0+.5,cy0+.5,cw-1,ch-1,12);ctx.stroke();
+    portrait(cx0+18+r2,cy0+ch/2,r2,R[i][0],R[i][1]);
+    ctx.font=font(600,18);ctx.fillStyle=COL.ink;ctx.fillText(R[i][2],cx0+18+r2*2+16,cy0+42);
+    ctx.font='700 10.5px "Space Mono", monospace';ctx.fillStyle=COL.B;
+    ctx.fillText(R[i][3],cx0+18+r2*2+16,cy0+64);
+  }
+  y+=Math.ceil(R.length/cols)*(ch+14)+18;
+  ctx.font='400 18px Inter, sans-serif';ctx.fillStyle=COL.muted;
+  ctx.fillText('Plus the senior engineers we deploy into every pod.',44,y);
+  y+=32;
+  return y+36;
+}
 function bContact(LW){
   var y=56;
   dayTag(44,y,'UPLINK · DIRECT');y+=54;
@@ -934,6 +968,7 @@ function buildAtlas(){
     ['pawan','PJ','ADV 01 · GOVERNANCE','Pawan Kumar Jain','Former Directorate General, GST (IRS) · GST Council Law Committee. Compliance-by-design for large-scale digital systems.'],
     ['prasun','PM','ADV 02 · DATA & AI','Prasun Mishra','Chief Data & AI Officer, Tavant. Two decades taking enterprise AI from pilot to production at global scale.'],
     ['shivhari','SG','ADV 03 · FINANCE','Shivhari Garg','Chartered Accountant, 35+ years. Audit frameworks and regulation translated into system design.']],46),hw:1.50},
+   {id:'storyCrew',draw:bStoryCrew,hw:1.60},
    {id:'storyCreed',draw:(function(){var f=mkLog('THE CREED','We take responsibility\nfor what we build.',true,'A small, focused crew that ships work we can stand behind — systems that quietly do their job well, day after day.','CREW STATUS: RELENTLESS');return function(LW){var h=f(LW);var b1=button(44,h-16,'Book a consultation','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');button(44+b1+14,h-16,'Our principles →','about.html#principles','g');return h+56;};})(),hw:1.75},
    {id:'workCTA',draw:mkLog('NEXT SLOT','Want to be\nthe next one?',true,'One pod slot opens each quarter.','SLOT STATUS: OPEN'),hw:1.70},
    {id:'aboutHero',draw:mkBigLine('WHO WE ARE','The best software\nis built inside.',true,'Proximity beats process. Ownership beats advice.'),hw:1.85},
@@ -1822,6 +1857,8 @@ function rayFromScreen(cssX,cssY){
   var l=Math.sqrt(dx*dx+dy*dy+dz*dz);
   return [dx/l,dy/l,dz/l];
 }
+/* fat-finger slop: generous on touch screens, tight with a mouse */
+var HIT_SLOP=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)?22:6;
 function hitTest(cssX,cssY){
   if(!atlasReady)return null;
   var D=rayFromScreen(cssX,cssY);
@@ -1841,7 +1878,7 @@ function hitTest(cssX,cssY){
     var ly=(1-(ply/p.hh*0.5+0.5))*p.lh;
     for(var li=0;li<p.links.length;li++){
       var L=p.links[li];
-      if(lx>=L.x-6&&lx<=L.x+L.w+6&&ly>=L.y-6&&ly<=L.y+L.h+6){
+      if(lx>=L.x-HIT_SLOP&&lx<=L.x+L.w+HIT_SLOP&&ly>=L.y-HIT_SLOP&&ly<=L.y+L.h+HIT_SLOP){
         best={p:activeIdx[a],l:li,t:t};bt=t;
       }
     }
@@ -1920,11 +1957,12 @@ hitlink.addEventListener('click',function(e){
     });
   }
 })();
-glc.addEventListener('click',function(e){
+function handleTap(cx,cy,fromTouch){
   if(navLock)return;
-  var h=hitTest(e.clientX,e.clientY);
+  var h=hitTest(cx,cy);
+  var e={clientX:cx,clientY:cy};
   if(!h){
-    var isTap=Date.now()-lastTouch<700;
+    var isTap=fromTouch||Date.now()-lastTouch<700;
     if(isTap){
       var nx3=e.clientX/W;
       /* edge taps always steer/advance — even over a board */
@@ -1968,7 +2006,26 @@ glc.addEventListener('click',function(e){
   if(/^https?:/i.test(href2)){a.target='_blank';a.rel='noopener';}
   document.body.appendChild(a);a.click();a.remove();
   navLock=true;glitch=1.0;setTimeout(function(){navLock=false;},600);
+}
+var tapHandled=false;
+glc.addEventListener('click',function(e){
+  if(tapHandled){tapHandled=false;return;}
+  handleTap(e.clientX,e.clientY,false);
 });
+/* touch taps fire from touchend directly — momentum scroll swallows click events */
+var tSX=0,tSY=0,tST=0;
+glc.addEventListener('touchstart',function(e){
+  var t=e.changedTouches[0];tSX=t.clientX;tSY=t.clientY;tST=Date.now();
+},{passive:true});
+glc.addEventListener('touchend',function(e){
+  lastTouch=Date.now();initGyro();
+  var t=e.changedTouches[0];
+  if(Math.abs(t.clientX-tSX)<12&&Math.abs(t.clientY-tSY)<12&&Date.now()-tST<600){
+    tapHandled=true;
+    if(e.cancelable)e.preventDefault();
+    handleTap(t.clientX,t.clientY,true);
+  }
+},{passive:false});
 
 /* ================= FP TOKENS (gamified journey) ================= */
 var TOKENS=[],FP=0,FPmax=0;
@@ -2123,7 +2180,6 @@ function initGyro(){
     }else attach();
   }catch(err){}
 }
-glc.addEventListener('touchend',function(){lastTouch=Date.now();initGyro();},{passive:true});
 
 /* ================= BOOT (DOM) ================= */
 var bootEl=document.getElementById('boot');

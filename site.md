@@ -210,6 +210,8 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 - **Prasun Mishra** — Data & AI. Chief Data & AI Officer at Tavant. Two decades taking enterprise AI from pilot to production at global scale.
 - **Shivhari Garg** — Finance. Chartered Accountant with 35+ years of practice. Audit frameworks and regulation, translated into system design.
 
+**The crew.** A small, senior-only core — the founders and advisors above, plus the senior engineers we deploy into every pod. No juniors, no bench.
+
 **Numbers:** 100% senior engineers · 14 days to first live release · 92% of clients come back · 1 call to find out if we fit.
 
 ---

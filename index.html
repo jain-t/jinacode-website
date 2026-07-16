@@ -94,6 +94,19 @@ body.nocursor,body.nocursor *{cursor:none !important}
 #toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%) translateY(14px);z-index:7;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:#ffd9b8;background:rgba(12,5,18,.9);border:1px solid rgba(255,170,110,.4);border-radius:10px;padding:10px 18px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;max-width:86vw;text-align:center;text-transform:uppercase;box-shadow:0 0 30px rgba(255,106,61,.25)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (max-width:680px){#hud-bl #fp{display:inline}}
+
+/* ---------- rotate-to-landscape prompt (portrait phones) ---------- */
+#rotate{position:fixed;inset:0;z-index:60;background:rgba(5,2,8,.95);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--mono)}
+#rotate[hidden]{display:none}
+#rotate .rot-box{padding:36px 28px;max-width:340px}
+#rotate .rot-phone{width:44px;height:72px;margin:0 auto 22px;border:2.5px solid var(--hud);border-radius:9px;position:relative;animation:rot-tip 2.4s ease-in-out infinite}
+#rotate .rot-phone::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:12px;height:2.5px;border-radius:2px;background:var(--hud)}
+@keyframes rot-tip{0%,20%{transform:rotate(0)}55%,80%{transform:rotate(-90deg)}100%{transform:rotate(-90deg)}}
+#rotate b{display:block;color:#ffd9b8;letter-spacing:.18em;font-size:13px;margin-bottom:10px;text-shadow:0 0 14px rgba(247,148,63,.55)}
+#rotate p{color:var(--hud-dim);font-size:11.5px;letter-spacing:.1em;line-height:1.7;margin:0 0 26px;text-transform:uppercase}
+#rotate button{display:block;width:100%;margin:0 0 12px;padding:12px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:8px;background:rgba(255,110,60,.07);border:1px solid rgba(255,140,80,.5);color:#ffd9b8}
+#rotate button:active{background:rgba(255,110,60,.2)}
+#rotate #rot-go{background:linear-gradient(120deg,var(--a),var(--c));border:none;color:#1c0a02;font-weight:700}
 </style>
 </head>
 <body>
@@ -141,6 +154,43 @@ body.nocursor,body.nocursor *{cursor:none !important}
   </div>
 </noscript>
 
+<div id="rotate" hidden>
+  <div class="rot-box">
+    <div class="rot-phone"></div>
+    <b>THIS RIDE IS WIDESCREEN</b>
+    <p>Rotate your phone<br>for the full experience</p>
+    <button id="rot-go" type="button">Go fullscreen landscape</button>
+    <button id="rot-skip" type="button">Ride in portrait →</button>
+  </div>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('rotate');
+  var go=document.getElementById('rot-go');
+  var mq=window.matchMedia('(orientation: portrait)');
+  var canLock=!!(document.documentElement.requestFullscreen&&screen.orientation&&screen.orientation.lock);
+  if(!canLock)go.style.display='none';
+  function upd(){
+    var touch=window.matchMedia('(pointer: coarse)').matches;
+    var small=Math.min(screen.width,screen.height)<820;
+    var skipped=null;try{skipped=sessionStorage.getItem('ridePortrait');}catch(e){}
+    el.hidden=!(mq.matches&&touch&&small&&!skipped);
+  }
+  if(mq.addEventListener)mq.addEventListener('change',upd);else if(mq.addListener)mq.addListener(upd);
+  window.addEventListener('resize',upd);
+  document.getElementById('rot-skip').addEventListener('click',function(){
+    try{sessionStorage.setItem('ridePortrait','1');}catch(e){}
+    upd();
+  });
+  go.addEventListener('click',function(){
+    var lock=function(){try{screen.orientation.lock('landscape').catch(function(){});}catch(e){}};
+    var p=null;
+    try{p=document.documentElement.requestFullscreen();}catch(e){}
+    if(p&&p.then)p.then(lock,lock);else lock();
+  });
+  upd();
+})();
+</script>
 <script src="assets/js/three.min.js"></script>
 <script src="terminal-story.js"></script>
 </body>
