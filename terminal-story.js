@@ -3136,6 +3136,9 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
     '#joy .base{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,150,90,.45);background:rgba(10,5,16,.38)}'+
     '#joy .base::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(255,150,90,.22)}'+
     '#joy .a{position:absolute;font:700 11px "Space Mono",monospace;color:rgba(255,196,150,.55);pointer-events:none}'+
+    '#joy .ah{opacity:.28;transition:opacity .3s,color .3s}'+
+    '#joy.steer .ah{opacity:1;color:#5bff9e;text-shadow:0 0 10px rgba(91,255,158,.8);animation:joy-pulse 1.4s infinite}'+
+    '@keyframes joy-pulse{0%,100%{opacity:1}50%{opacity:.45}}'+
     '#joy .knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,210,150,.95),rgba(255,106,61,.88));box-shadow:0 0 16px rgba(255,120,60,.6);transition:transform .14s;pointer-events:none}'+
     '#joy.live .knob{transition:none}'+
     '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:rgba(255,196,150,.55);white-space:nowrap;pointer-events:none}';
@@ -3144,8 +3147,8 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   joy.innerHTML='<div class="base"></div>'+
     '<span class="a" style="left:50%;top:5px;transform:translateX(-50%)">&#9650;</span>'+
     '<span class="a" style="left:50%;bottom:5px;transform:translateX(-50%)">&#9660;</span>'+
-    '<span class="a" style="left:7px;top:50%;transform:translateY(-50%)">&#9664;</span>'+
-    '<span class="a" style="right:7px;top:50%;transform:translateY(-50%)">&#9654;</span>'+
+    '<span class="a ah" style="left:7px;top:50%;transform:translateY(-50%)">&#9664;</span>'+
+    '<span class="a ah" style="right:7px;top:50%;transform:translateY(-50%)">&#9654;</span>'+
     '<div class="knob"></div><div class="tag">RIDE</div>';
   document.body.appendChild(joy);
   var knob=joy.querySelector('.knob');
@@ -3165,7 +3168,7 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
     if(armH&&Math.abs(nx)>0.8&&Math.abs(ny)<0.6&&!navLock&&!trans){
       armH=false;
       if(curBeat===NB-1)routeTo(nx>0?ROUTES[curRoute].R:ROUTES[curRoute].L,nx>0?1:-1);
-      else goBeat(nx>0?1:-1);
+      else showToast('◀ ▶ STEER — UNLOCKS AT THE JUNCTION · RIDE WITH ▲ ▼');
     }
     if(Math.abs(nx)<0.4)armH=true;
   }
@@ -3179,6 +3182,8 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;}
   joy.addEventListener('pointerup',jend);
   joy.addEventListener('pointercancel',jend);
+  /* light the steer arrows only when steering is possible (at a junction) */
+  setInterval(function(){joy.classList.toggle('steer',curBeat===NB-1&&!trans);},300);
 })();
 
 })();
