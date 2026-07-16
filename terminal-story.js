@@ -3124,4 +3124,61 @@ var fl=['700 64px "Space Grotesk"','700 38px "Space Grotesk"','600 22px "Space G
 Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function(){
   fontsReady=true;resize();
 }).catch(function(){fontsReady=true;resize();});
+
+/* ================= MOBILE JOYSTICK ================= */
+/* thumbstick for touch devices: push up/down to ride, flick left/right
+   to jump beats — and to steer at a junction */
+(function(){
+  if(!(window.matchMedia&&matchMedia('(pointer: coarse)').matches))return;
+  var st=document.createElement('style');
+  st.textContent=
+    '#joy{position:fixed;right:14px;bottom:calc(64px + env(safe-area-inset-bottom,0px));width:112px;height:112px;z-index:8;touch-action:none;user-select:none;-webkit-user-select:none}'+
+    '#joy .base{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,150,90,.45);background:rgba(10,5,16,.38)}'+
+    '#joy .base::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(255,150,90,.22)}'+
+    '#joy .a{position:absolute;font:700 11px "Space Mono",monospace;color:rgba(255,196,150,.55);pointer-events:none}'+
+    '#joy .knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,210,150,.95),rgba(255,106,61,.88));box-shadow:0 0 16px rgba(255,120,60,.6);transition:transform .14s;pointer-events:none}'+
+    '#joy.live .knob{transition:none}'+
+    '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:rgba(255,196,150,.55);white-space:nowrap;pointer-events:none}';
+  document.head.appendChild(st);
+  var joy=document.createElement('div');joy.id='joy';
+  joy.innerHTML='<div class="base"></div>'+
+    '<span class="a" style="left:50%;top:5px;transform:translateX(-50%)">&#9650;</span>'+
+    '<span class="a" style="left:50%;bottom:5px;transform:translateX(-50%)">&#9660;</span>'+
+    '<span class="a" style="left:7px;top:50%;transform:translateY(-50%)">&#9664;</span>'+
+    '<span class="a" style="right:7px;top:50%;transform:translateY(-50%)">&#9654;</span>'+
+    '<div class="knob"></div><div class="tag">RIDE</div>';
+  document.body.appendChild(joy);
+  var knob=joy.querySelector('.knob');
+  var R=38,nx=0,ny=0,active=false,armH=true,rafId=0;
+  function setKnob(dx,dy){knob.style.transform='translate('+dx+'px,'+dy+'px)';}
+  function loop(){
+    if(active){
+      if(Math.abs(ny)>0.14)window.scrollBy(0,-ny*26);
+      rafId=requestAnimationFrame(loop);
+    }
+  }
+  function upd(e){
+    var r=joy.getBoundingClientRect();
+    var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+    var m=Math.sqrt(dx*dx+dy*dy);if(m>R){dx*=R/m;dy*=R/m;}
+    setKnob(dx,dy);nx=dx/R;ny=dy/R;
+    if(armH&&Math.abs(nx)>0.8&&Math.abs(ny)<0.6&&!navLock&&!trans){
+      armH=false;
+      if(curBeat===NB-1)routeTo(nx>0?ROUTES[curRoute].R:ROUTES[curRoute].L,nx>0?1:-1);
+      else goBeat(nx>0?1:-1);
+    }
+    if(Math.abs(nx)<0.4)armH=true;
+  }
+  joy.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    try{joy.setPointerCapture(e.pointerId);}catch(x){}
+    active=true;joy.classList.add('live');upd(e);
+    cancelAnimationFrame(rafId);rafId=requestAnimationFrame(loop);
+  });
+  joy.addEventListener('pointermove',function(e){if(active)upd(e);});
+  function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;}
+  joy.addEventListener('pointerup',jend);
+  joy.addEventListener('pointercancel',jend);
+})();
+
 })();
