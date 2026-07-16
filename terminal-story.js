@@ -2176,12 +2176,12 @@ function updFP(pop){
   fpEl.textContent='FP '+s;
   if(pop){fpEl.classList.remove('fp-pop');void fpEl.offsetWidth;fpEl.classList.add('fp-pop');}
 }
-function showToast(msg){
+function showToast(msg,ms){
   if(!toastEl)return;
   toastEl.textContent=msg;
   toastEl.classList.add('show');
   if(toastT)clearTimeout(toastT);
-  toastT=setTimeout(function(){toastEl.classList.remove('show');},2600);
+  toastT=setTimeout(function(){toastEl.classList.remove('show');},ms||2600);
 }
 function collectPass(dt){
   for(var i=0;i<TOKENS.length;i++){
@@ -2312,6 +2312,12 @@ function bootTick(t){
     booted=true;
     if(bootEl){bootEl.style.opacity='0';setTimeout(function(){bootEl.style.display='none';},600);}
     glitch=Math.max(glitch,0.8);
+    /* controls hint, front and center once the world is up */
+    setTimeout(function(){
+      showToast(GFXQ>0.5
+        ?'⌨ RIDE WITH THE ↑ ↓ ARROW KEYS · ← → STEERS AT JUNCTIONS'
+        :'RIDE WITH THE JOYSTICK ▼ — OR JUST SCROLL',5200);
+    },900);
     return;
   }
   if(bootEl){
