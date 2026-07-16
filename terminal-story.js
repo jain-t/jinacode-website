@@ -563,17 +563,17 @@ function bFooter(LW){
     ['COMPANY',[['The Pod','product.html'],['Pod tiers','product.html#tiers'],['Case reels','work.html'],['About','about.html'],['Our story','story.html'],['Contact','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A']]],
     ['GET STARTED',[['Book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A'],['developers@jinacode.systems','mailto:developers@jinacode.systems'],['+91 88603 02406','tel:+918860302406']]]
   ];
-  var colW=(LW-88)/3, y0=y, maxR=0;
+  var colW=(LW-88)/3, y0=y, maxR=0, pitch=isMob?40:28; /* fat-finger row spacing on touch */
   for(var c=0;c<3;c++){
     var hx=44+c*colW;
     ctx.font='700 11px "Space Mono", monospace';setLS('2px');
     ctx.fillStyle=COL.amber;ctx.fillText(cols[c][0],hx,y0);setLS('0px');
     for(var r=0;r<cols[c][1].length;r++){
-      link(hx,y0+16+r*28,cols[c][1][r][0],cols[c][1][r][1]);
+      link(hx,y0+16+r*pitch,cols[c][1][r][0],cols[c][1][r][1]);
     }
     if(cols[c][1].length>maxR)maxR=cols[c][1].length;
   }
-  y=y0+16+maxR*28+30;
+  y=y0+16+maxR*pitch+30;
   ctx.strokeStyle=COL.stroke;ctx.beginPath();ctx.moveTo(44,y-16);ctx.lineTo(LW-44,y-16);ctx.stroke();
   ctx.font='400 11px "Space Mono", monospace';ctx.fillStyle=COL.dim;
   ctx.fillText('© 2026 JINACODE SYSTEMS',44,y+6);
@@ -1964,7 +1964,9 @@ function hitTest(cssX,cssY){
     var ly=(1-(ply/p.hh*0.5+0.5))*p.lh;
     for(var li=0;li<p.links.length;li++){
       var L=p.links[li];
-      if(lx>=L.x-HIT_SLOP&&lx<=L.x+L.w+HIT_SLOP&&ly>=L.y-HIT_SLOP&&ly<=L.y+L.h+HIT_SLOP){
+      /* vertical slop never exceeds half the link height — dense rows must not bleed into each other */
+      var vs=Math.min(HIT_SLOP,Math.max(6,L.h*0.5));
+      if(lx>=L.x-HIT_SLOP&&lx<=L.x+L.w+HIT_SLOP&&ly>=L.y-vs&&ly<=L.y+L.h+vs){
         /* overlapping slopped rects: prefer the link whose center is closest */
         var d9=Math.abs(lx-(L.x+L.w/2))/Math.max(1,L.w)+Math.abs(ly-(L.y+L.h/2))/Math.max(1,L.h);
         if(t<bt-1e-4||(Math.abs(t-bt)<=1e-4&&d9<bd)){
@@ -2091,6 +2093,12 @@ function handleTap(cx,cy,fromTouch){
       else goBeat(1);
     }
     return;
+  }
+  /* touch: a link too small to tap reliably zooms its board for reading instead */
+  if(fromTouch&&zoomA<0.35){
+    var LP5=panels[h.p],LL5=LP5.links[h.l];
+    var sh5=LL5.h*(LP5.hh*2/LP5.lh)*(focalCur/Math.max(0.2,h.t))*(H*0.5);
+    if(sh5<28){tapZoomIdx=h.p;return;}
   }
   tapZoomIdx=-1;
   var href2=panels[h.p].links[h.l].href;
