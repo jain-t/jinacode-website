@@ -316,7 +316,7 @@ function bHero(LW){
   eyebrow(44,y,'Forward-Deployed Engineering · Productized');y+=30;
   var s=isMob?50:72, lh=s*1.08;
   ctx.font=font(700,s);ctx.fillStyle=COL.ink;
-  ctx.fillText('Ship the hard part.',44,y+lh*0.82);
+  ctx.fillText('Ship what’s stuck.',44,y+lh*0.82);
   ctx.fillStyle=grad(44,y+lh,LW*0.8);
   ctx.fillText('We embed.',44,y+lh*1.86);
   ctx.fillText('You accelerate.',44,y+lh*2.90);
@@ -522,7 +522,7 @@ function bCTA(LW){
   var y=70;
   ctx.textAlign='center';
   ctx.font=font(700,isMob?44:60);ctx.fillStyle=COL.ink;
-  ctx.fillText('Got a hard part?',LW/2,y+16);y+=72;
+  ctx.fillText('What’s stuck?',LW/2,y+16);y+=72;
   ctx.font='400 20px Inter, sans-serif';ctx.fillStyle=COL.muted;
   ctx.fillText('30 minutes. An honest answer — even if it’s “don’t build it.”',LW/2,y);y+=44;
   ctx.textAlign='left';
@@ -916,7 +916,7 @@ function buildAtlas(){
   var defs=[
    {id:'hero', draw:bHero, hw:1.90},
    {id:'trust',draw:bTrust,hw:1.95},
-   {id:'step0',draw:mkLog('DAY 0–3 · SCOPE','Day 0. Find\nthe hard part.',true,'One session. One metric. One provable slice.','SCOPE.LOCK — TARGET ACQUIRED'),hw:1.70},
+   {id:'step0',draw:mkLog('DAY 0–3 · SCOPE','Day 0. Find\nwhat’s stuck.',true,'One session. One metric. One provable slice.','SCOPE.LOCK — TARGET ACQUIRED'),hw:1.70},
    {id:'step1',draw:mkLog('DAY 3–7 · EMBED','Day 3. We’re in\nyour repo.',true,'Access, plan and first commits — all inside week one.','git push origin main — ACCEPTED'),hw:1.70},
    {id:'step2',draw:mkLog('WEEK 2–4 · SHIP','Day 21. The engine\nis running.',true,'Working software every week. You set the priorities.','RELEASE CADENCE: WEEKLY — STABLE'),hw:1.70},
    {id:'step3',draw:mkLog('DAY 28 · HAND OFF','Day 28.\nYours. Running.',true,'Docs, tests, pairing — then we hand you the keys.','POD DETACHED — SYSTEMS NOMINAL'),hw:1.70},
@@ -2076,7 +2076,7 @@ var FACTS=[
  'Strike, Pod, or Platform — three shapes, one senior bar.',
  'When the pod leaves, the muscle memory stays.'
 ];
-var GATEFACTS={0:'DAY 0 — one question: what’s the hard part?',
+var GATEFACTS={0:'DAY 0 — one question: what’s stuck?',
  3:'DAY 3 — first commits land inside the first week.',
  7:'DAY 7 — evals armed, pipelines humming.',
  14:'DAY 14 — median first production deploy. Watch the tower.',
