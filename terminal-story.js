@@ -528,11 +528,21 @@ function bCTA(LW){
   ctx.textAlign='left';
   ctx.font=font(600,17);
   var bw=ctx.measureText('✉ Email us — book an intro call').width+74;
-  button((LW-bw)/2,y,'✉ Email us — book an intro call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
-  y+=52+30;
+  var bw2=ctx.measureText('✆ Call +91 88603 02406').width+48;
+  if(bw+14+bw2<LW-88){
+    var x0=(LW-bw-14-bw2)/2;
+    button(x0,y,'✉ Email us — book an intro call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+    button(x0+bw+14,y,'✆ Call +91 88603 02406','tel:+918860302406','g');
+    y+=52+30;
+  }else{
+    button((LW-bw)/2,y,'✉ Email us — book an intro call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+    y+=52+14;
+    button((LW-bw2)/2,y,'✆ Call +91 88603 02406','tel:+918860302406','g');
+    y+=52+30;
+  }
   ctx.textAlign='center';
   ctx.font='400 12px "Space Mono", monospace';ctx.fillStyle=COL.amber;
-  ctx.fillText('> WRITE TO DEVELOPERS@JINACODE.SYSTEMS — REPLY WITHIN ONE BUSINESS DAY',LW/2,y);
+  ctx.fillText('> EMAIL DEVELOPERS@JINACODE.SYSTEMS · CALL +91 88603 02406',LW/2,y);
   ctx.textAlign='left';
   return y+40;
 }
@@ -549,7 +559,7 @@ function bFooter(LW){
   var cols=[
     ['SERVICES',[['Voice AI','product.html#voice'],['WhatsApp automation','product.html#wa'],['Chatbots & RAG','product.html#rag'],['Agentic workflows','product.html#agentic'],['Web & mobile','product.html#webmobile'],['Offshore pods','product.html#offshore']]],
     ['COMPANY',[['The Pod','product.html'],['Pod tiers','product.html#tiers'],['Case reels','work.html'],['About','about.html'],['Our story','story.html'],['Contact','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A']]],
-    ['GET STARTED',[['Book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A'],['developers@jinacode.systems','mailto:developers@jinacode.systems']]]
+    ['GET STARTED',[['Book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A'],['developers@jinacode.systems','mailto:developers@jinacode.systems'],['+91 88603 02406','tel:+918860302406']]]
   ];
   var colW=(LW-88)/3, y0=y, maxR=0;
   for(var c=0;c<3;c++){
@@ -720,9 +730,12 @@ function bContact(LW){
   ctx.font='400 20px Inter, sans-serif';ctx.fillStyle=COL.muted;
   for(var cl9=0;cl9<cls.length;cl9++)ctx.fillText(cls[cl9],44,y+cl9*31);
   y+=cls.length*31+14;
-  button(44,y,'✉ Email us to book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  var bc1=button(44,y,'✉ Email us to book a call','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  button(44+bc1+14,y,'✆ Call us','tel:+918860302406','g');
   y+=52+26;
   link(44,y,'developers@jinacode.systems','mailto:developers@jinacode.systems');
+  y+=26;
+  link(44,y,'+91 88603 02406','tel:+918860302406');
   return y+22+40;
 }
 /* ---------- service billboard: one board per service on the product road ---------- */
