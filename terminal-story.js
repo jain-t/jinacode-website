@@ -1829,7 +1829,7 @@ function resize(){
   spacerScroll=Math.round(NB*H*2.45);
   document.getElementById('spacer').style.height=(H+spacerScroll)+'px';
   if(hint)hint.innerHTML=isMob?'Scroll to ride · tap a board to read <span class="arr">▼</span>'
-    :'Scroll or → to ride · hover a board to read · collect FP <span class="arr">▼</span>';
+    :'Scroll or ↑ ↓ arrows to ride · hover a board to read · collect FP <span class="arr">▼</span>';
   if(gl)gl.viewport(0,0,glc.width,glc.height);
   if(T3)T3.resize();
   if(fontsReady&&imgsSettled&&(!atlasReady||wasMob!==isMob))buildAtlas();
