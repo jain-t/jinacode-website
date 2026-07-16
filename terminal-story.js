@@ -1181,7 +1181,7 @@ var FS=[
 'uniform float uGA;uniform float uGB;',
 'uniform vec3 uTokP[4];uniform float uTokA[4];',
 'uniform vec3 uLamp[4];uniform float uEnd;uniform vec3 uBush[6];uniform vec3 uTint;',
-'uniform sampler2D uTex;',
+'uniform sampler2D uTex;uniform float uQual;',
 'const float GZ0='+GATES[0].z.toFixed(1)+';const float GZ1='+GATES[1].z.toFixed(1)+';const float GZ2='+GATES[2].z.toFixed(1)+';const float GZ3='+GATES[3].z.toFixed(1)+';const float GZ4='+GATES[4].z.toFixed(1)+';const float GZ5='+GATES[5].z.toFixed(1)+';',
 'const vec3 MOOND=vec3(0.4242,0.3434,0.5556);',
 'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
@@ -1474,6 +1474,24 @@ var FS=[
 '  /* gravel shoulder */',
 '  float shl=smoothstep(0.87,0.92,rd)*(1.0-smoothstep(1.02,1.14,rd));',
 '  gcol=mix(gcol,vec3(0.030,0.026,0.038)*(0.8+0.5*vnoise(g.xz*13.0)),shl*0.85);',
+'  /* contact shadows: billboards occlude the moonlight (desktop tier) */',
+'  if(uQual>0.5){',
+'   float sh=1.0;',
+'   for(int si=0;si<5;si++){',
+'    if(uPanA[si]<0.05)continue;',
+'    vec3 N3=uPanN[si];',
+'    float dn3=dot(MOOND,N3);',
+'    if(abs(dn3)<1e-3)continue;',
+'    float t3=dot(uPanPos[si]-g,N3)/dn3;',
+'    if(t3<0.0||t3>14.0)continue;',
+'    vec3 q3=g+MOOND*t3-uPanPos[si];',
+'    vec2 pl3=vec2(dot(q3,uPanU[si]),dot(q3,uPanV[si]));',
+'    float outs=max(abs(pl3.x)-uPanHalf[si].x,abs(pl3.y)-uPanHalf[si].y);',
+'    float pen=0.12+t3*0.10;',
+'    sh*=1.0-(1.0-smoothstep(-pen,pen,outs))*0.42*uPanA[si]*exp(-t3*0.10);',
+'   }',
+'   gcol*=sh;',
+'  }',
 '  /* painted edge lines (white) */',
 '  float eL=smoothstep(0.028,0.012,abs(rd-0.80));',
 '  gcol+=vec3(0.85,0.85,0.80)*eL*(0.16+0.38*powered);',
@@ -1512,6 +1530,37 @@ var FS=[
 '  gt+=exp(-(g.z-GZ2)*(g.z-GZ2)*8.0);gt+=exp(-(g.z-GZ3)*(g.z-GZ3)*8.0);',
 '  gt+=exp(-(g.z-GZ4)*(g.z-GZ4)*8.0);gt+=exp(-(g.z-GZ5)*(g.z-GZ5)*8.0);',
 '  gcol+=mix(vec3(1.0,0.85,0.60),uTint,0.6)*gt*exp(-rd*rd*6.0)*powered*0.22;',
+'  /* wet asphalt: mirrored neon (desktop tier) */',
+'  if(uQual>0.5){',
+'   float fresR=pow(1.0-clamp(-D.y,0.0,1.0),3.0);',
+'   float rAmt=(road*0.80+0.08)*(0.22+0.62*fresR);',
+'   vec3 Dr=normalize(vec3(D.x+(vnoise(g.xz*34.0)-0.5)*0.10,-D.y,D.z+(vnoise(g.xz*27.0+9.0)-0.5)*0.05));',
+'   vec3 Ro=vec3(g.x,0.001,g.z);',
+'   vec3 rc=vec3(0.0);',
+'   for(int ri=0;ri<5;ri++){',
+'    if(uPanA[ri]<0.05)continue;',
+'    vec3 N4=uPanN[ri];',
+'    float dn4=dot(Dr,N4);',
+'    if(abs(dn4)<1e-4)continue;',
+'    float t4=dot(uPanPos[ri]-Ro,N4)/dn4;',
+'    if(t4<0.05||t4>40.0)continue;',
+'    vec3 hp4=Ro+Dr*t4;vec3 q4=hp4-uPanPos[ri];',
+'    vec2 pl4=vec2(dot(q4,uPanU[ri]),dot(q4,uPanV[ri]));',
+'    vec2 hf4=uPanHalf[ri];',
+'    if(abs(pl4.x)>hf4.x||abs(pl4.y)>hf4.y)continue;',
+'    vec2 l4=vec2(pl4.x/hf4.x*0.5+0.5,1.0-(pl4.y/hf4.y*0.5+0.5));',
+'    vec4 uv4=uPanUV[ri];',
+'    vec3 s4=texture2D(uTex,vec2(uv4.x+l4.x*(uv4.z-uv4.x),uv4.y+l4.y*(uv4.w-uv4.y))).rgb;',
+'    rc+=s4*1.2*uPanA[ri]*exp(-t4*0.09);',
+'   }',
+'   for(int rl3=0;rl3<4;rl3++){',
+'    vec3 LP3=uLamp[rl3];',
+'    if(LP3.y<0.0)continue;',
+'    rc+=mix(vec3(1.0,0.82,0.55),uTint,0.55)*pglow(Ro,Dr,vec3(LP3.x,1.58,LP3.z),700.0)*1.1;',
+'   }',
+'   rc+=vec3(1.0,0.9,0.8)*pglow(Ro,Dr,uBeacon+vec3(0.0,0.22,0.0),1800.0)*1.3*uBeaconG;',
+'   gcol+=rc*rAmt;',
+'  }',
 '  col=mix(hazeC*0.5,gcol,fog);',
 ' } else if(what==3){',
 '  float fog=exp(-bestT*0.05);',
@@ -1777,7 +1826,9 @@ var FS=[
 ' col+=(n-0.5)*(0.028+uGlitch*0.22);',
 ' vec2 vuv=fc/uRes-0.5;',
 ' col*=1.0-0.30*dot(vuv,vuv)*1.6;',
-' col*=1.10;\n col=col/(1.0+col*0.045);',
+' col*=1.07;',
+' vec3 tmc=(col*(2.51*col+0.03))/(col*(2.43*col+0.59)+0.14);',
+' col=mix(col,clamp(tmc,vec3(0.0),vec3(1.0)),0.80);',
 ' float lum=dot(col,vec3(0.299,0.587,0.114));',
 ' col=mix(vec3(lum),col,1.10);',
 ' gl_FragColor=vec4(col,1.0);',
@@ -1805,7 +1856,7 @@ function initGL(){
   ['uRes','uTime','uMouse','uGlitch','uVel','uReduce','uPos','uFwd','uRight','uUp','uFocal',
    'uFront','uDay','uSpeed','uBoxMin','uBoxMax','uBoxGrow','uBoxLit',
    'uPanPos','uPanU','uPanV','uPanN','uPanHalf','uPanUV','uPanA',
-   'uHov','uHovAmt','uHovIdx','uBeacon','uBeaconG','uBikeA','uGA','uGB','uTokP','uTokA','uLamp','uEnd','uBush','uPanFx','uReel','uTint','uTex']
+   'uHov','uHovAmt','uHovIdx','uBeacon','uBeaconG','uBikeA','uGA','uGB','uTokP','uTokA','uLamp','uEnd','uBush','uPanFx','uReel','uTint','uTex','uQual']
    .forEach(function(n){uni[n]=gl.getUniformLocation(prog,n);});
   tex=gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D,tex);
@@ -1879,6 +1930,8 @@ function rayFromScreen(cssX,cssY){
 }
 /* fat-finger slop: generous on touch screens, tight with a mouse */
 var HIT_SLOP=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)?22:6;
+/* graphics tier: reflections + contact shadows on fine-pointer (desktop) only */
+var GFXQ=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)?0.0:1.0;
 function hitTest(cssX,cssY){
   if(!atlasReady)return null;
   var D=rayFromScreen(cssX,cssY);
@@ -2506,6 +2559,7 @@ function frame(tms){
   var tgtT=ROUTES[curRoute].tint||[1.0,0.58,0.30];
   for(var tc2=0;tc2<3;tc2++)curTint[tc2]+=(tgtT[tc2]-curTint[tc2])*clamp(dt*0.0065,0,1);
   gl.uniform3f(uni.uTint,curTint[0],curTint[1],curTint[2]);
+  gl.uniform1f(uni.uQual,GFXQ);
   gl.uniform4f(uni.uHov,hovRect[0],hovRect[1],hovRect[2],hovRect[3]);
   gl.uniform1f(uni.uHovAmt,hovShaderIdx>=0?1:0);
   gl.uniform1f(uni.uHovIdx,hovShaderIdx);
