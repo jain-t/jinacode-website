@@ -69,7 +69,7 @@ var ROUTES={
   {z:23,phase:'NEXT SLOT', panel:'workCTA',look:[0,0.01,0,0.1,0]},
   {z:29,phase:'JUNCTION',  panel:'jWork',  look:[0,0.02,0,0.30,0]}
  ]},
- about:{label:'ABOUT',L:'work',R:'contact',tint:[0.40,0.95,0.58],css:['#5bff9e','#4be3a8','#b8ff5b'],beats:[
+ about:{label:'ABOUT',L:'story',R:'contact',tint:[0.40,0.95,0.58],css:['#5bff9e','#4be3a8','#b8ff5b'],beats:[
   {z:5, phase:'WHO WE ARE',panel:'aboutHero',look:[0,0.01,0,0.42,0]},
   {z:11,phase:'HOW WE WORK',panel:'aboutA', look:[0.05,0,0.01,0,0]},
   {z:17,id:'principles',phase:'PRINCIPLES', panel:'aboutB', look:[-0.05,0,-0.01,0,0]},
@@ -527,12 +527,12 @@ function bCTA(LW){
   ctx.fillText('30 minutes. An honest answer — even if it’s “don’t build it.”',LW/2,y);y+=44;
   ctx.textAlign='left';
   ctx.font=font(600,17);
-  var bw=ctx.measureText('Book an intro call').width+74;
-  button((LW-bw)/2,y,'Book an intro call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  var bw=ctx.measureText('✉ Email us — book an intro call').width+74;
+  button((LW-bw)/2,y,'✉ Email us — book an intro call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
   y+=52+30;
   ctx.textAlign='center';
   ctx.font='400 12px "Space Mono", monospace';ctx.fillStyle=COL.amber;
-  ctx.fillText('> YOUR DAY 0 IS ONE CALL AWAY',LW/2,y);
+  ctx.fillText('> WRITE TO TAPAN@JINACODE.SYSTEMS — REPLY WITHIN ONE BUSINESS DAY',LW/2,y);
   ctx.textAlign='left';
   return y+40;
 }
@@ -716,9 +716,11 @@ function bContact(LW){
   ctx.fillStyle=grad(44,y+lh,LW*0.7);
   ctx.fillText('you’re shipping.',44,y+lh*1.82);
   y+=lh*2+24;
+  var cls=wrapLines('400 20px Inter, sans-serif','Email us what you’re building — real reply within one business day, then a 30-minute call.',LW-96);
   ctx.font='400 20px Inter, sans-serif';ctx.fillStyle=COL.muted;
-  ctx.fillText('30-min call → scope → your Day 0.',44,y);y+=42;
-  button(44,y,'Book an intro call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
+  for(var cl9=0;cl9<cls.length;cl9++)ctx.fillText(cls[cl9],44,y+cl9*31);
+  y+=cls.length*31+14;
+  button(44,y,'✉ Email us to book a call','mailto:tapan@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');
   y+=52+26;
   link(44,y,'tapan@jinacode.systems','mailto:tapan@jinacode.systems');
   return y+22+40;
@@ -998,7 +1000,7 @@ function buildAtlas(){
    {id:'jHome',draw:mkJunction('work','product'),hw:1.35,lw:700,gate:true},
    {id:'jProduct',draw:mkJunction('work','contact'),hw:1.35,lw:700,gate:true},
    {id:'jWork',draw:mkJunction('about','product'),hw:1.35,lw:700,gate:true},
-   {id:'jAbout',draw:mkJunction('work','contact'),hw:1.35,lw:700,gate:true},
+   {id:'jAbout',draw:mkJunction('story','contact'),hw:1.35,lw:700,gate:true},
    {id:'jContact',draw:mkJunction('home','product'),hw:1.35,lw:700,gate:true},
    {id:'jCase',draw:mkJunction('all cases','next reel'),hw:1.35,lw:700,gate:true},
    {id:'jStory',draw:mkJunction('about','contact'),hw:1.35,lw:700,gate:true},
