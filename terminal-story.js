@@ -198,7 +198,13 @@ var IMG={
   shot4:   {src:'assets/img/work/peppolbridge.jpg'},
   shot5:   {src:'assets/img/work/jinaconnect.jpg'},
   shot6:   {src:'assets/img/work/claudally.jpg'},
-  shot7:   {src:'assets/img/work/gst365.jpg'}
+  shot7:   {src:'assets/img/work/gst365.jpg'},
+  cgrp:    {src:'assets/img/team/crew/crew-group.jpg'},
+  cnv:     {src:'assets/img/team/crew/crew-nvidia.jpg'},
+  cfes:    {src:'assets/img/team/crew/crew-festive.jpg'},
+  cdin:    {src:'assets/img/team/crew/crew-dinner.jpg'},
+  crev:    {src:'assets/img/team/crew/crew-review.jpg'},
+  coff:    {src:'assets/img/team/crew/crew-office.jpg'}
 };
 var imgsSettled=false,imgBlocked=false;
 (function(){
@@ -654,37 +660,51 @@ function mkBigLine(tag,big,gradLast,support){
     return y+36;
   };
 }
-/* the whole team on one board: founders + advisors roster */
+/* candid photo tile, cover-cropped with a face-friendly bias */
+function coverTile(key,x,y,w,h){
+  var im=imgOf(key);
+  ctx.save();rr(x,y,w,h,12);
+  if(im){
+    ctx.clip();
+    var iw=im.naturalWidth,ih=im.naturalHeight,s=Math.max(w/iw,h/ih);
+    ctx.drawImage(im,(iw-w/s)/2,(ih-h/s)*0.35,w/s,h/s,x,y,w,h);
+  }else{ctx.fillStyle='rgba(255,236,220,0.05)';ctx.fill();}
+  ctx.restore();
+  ctx.strokeStyle=COL.stroke;ctx.lineWidth=1;rr(x+.5,y+.5,w-1,h-1,12);ctx.stroke();
+}
+/* the crew billboard: field footage of the actual team */
 function bStoryCrew(LW){
   var y=56;
-  dayTag(44,y,'THE CREW · FULL ROSTER');y+=54;
+  dayTag(44,y,'THE CREW · FIELD FOOTAGE');y+=54;
   var s=isMob?36:48, lh=s*1.16;
   ctx.font=font(700,s);ctx.fillStyle=COL.ink;
   ctx.fillText('Small crew.',44,y+lh*0.82);
   ctx.fillStyle=grad(44,y+lh,LW*0.6);
   ctx.fillText('Senior only.',44,y+lh*1.82);
-  y+=lh*2+28;
-  var R=[
-   ['tapan','TJ','Tapan Jain','FOUNDER · CHIEF EVERYTHING OFFICER'],
-   ['amit','AJ','Amit Joshi','FOUNDER · CHIEF OPERATING OFFICER'],
-   ['pawan','PJ','Pawan Kumar Jain','ADVISOR · GOVERNANCE'],
-   ['prasun','PM','Prasun Mishra','ADVISOR · DATA & AI'],
-   ['shivhari','SG','Shivhari Garg','ADVISOR · FINANCE']
-  ];
-  var cols=isMob?1:2, cw=(LW-88-(cols-1)*18)/cols, ch=96, r2=30;
-  for(var i=0;i<R.length;i++){
-    var cx0=44+(i%cols)*(cw+18), cy0=y+Math.floor(i/cols)*(ch+14);
-    ctx.fillStyle='rgba(255,236,220,0.045)';rr(cx0,cy0,cw,ch,12);ctx.fill();
-    ctx.strokeStyle=COL.stroke;ctx.lineWidth=1;rr(cx0+.5,cy0+.5,cw-1,ch-1,12);ctx.stroke();
-    portrait(cx0+18+r2,cy0+ch/2,r2,R[i][0],R[i][1]);
-    ctx.font=font(600,18);ctx.fillStyle=COL.ink;ctx.fillText(R[i][2],cx0+18+r2*2+16,cy0+42);
-    ctx.font='700 10.5px "Space Mono", monospace';ctx.fillStyle=COL.B;
-    ctx.fillText(R[i][3],cx0+18+r2*2+16,cy0+64);
+  y+=lh*2+26;
+  var w=LW-88,g=14;
+  if(isMob){
+    coverTile('cgrp',44,y,w,240);y+=240+g;
+    var w2=(w-g)/2,h2=150;
+    coverTile('cnv',44,y,w2,h2);coverTile('cdin',44+w2+g,y,w2,h2);y+=h2+g;
+    coverTile('crev',44,y,w2,h2);coverTile('cfes',44+w2+g,y,w2,h2);y+=h2+g;
+  }else{
+    var lw2=Math.round(w*0.60), rw=w-lw2-g, lh2=330, rh=(lh2-g)/2;
+    coverTile('cgrp',44,y,lw2,lh2);
+    coverTile('cnv',44+lw2+g,y,rw,rh);
+    coverTile('cfes',44+lw2+g,y+rh+g,rw,rh);
+    y+=lh2+g;
+    var w3=(w-2*g)/3,h3=170;
+    coverTile('cdin',44,y,w3,h3);
+    coverTile('crev',44+w3+g,y,w3,h3);
+    coverTile('coff',44+2*(w3+g),y,w3,h3);
+    y+=h3+g;
   }
-  y+=Math.ceil(R.length/cols)*(ch+14)+18;
+  y+=12;
+  var cap=wrapLines('400 18px Inter, sans-serif','Office days, demo nights, NVIDIA AI Summit, GITEX — the crew behind every pod.',w);
   ctx.font='400 18px Inter, sans-serif';ctx.fillStyle=COL.muted;
-  ctx.fillText('Plus the senior engineers we deploy into every pod.',44,y);
-  y+=32;
+  for(var c9=0;c9<cap.length;c9++)ctx.fillText(cap[c9],44,y+6+c9*28);
+  y+=cap.length*28+12;
   return y+36;
 }
 function bContact(LW){
@@ -1862,7 +1882,7 @@ var HIT_SLOP=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)?22:6;
 function hitTest(cssX,cssY){
   if(!atlasReady)return null;
   var D=rayFromScreen(cssX,cssY);
-  var best=null,bt=1e9;
+  var best=null,bt=1e9,bd=1e9;
   for(var a=0;a<activeIdx.length;a++){
     var p=panels[activeIdx[a]];
     if(p.alpha<0.35||p.gate||!p.links.length)continue;
@@ -1879,7 +1899,11 @@ function hitTest(cssX,cssY){
     for(var li=0;li<p.links.length;li++){
       var L=p.links[li];
       if(lx>=L.x-HIT_SLOP&&lx<=L.x+L.w+HIT_SLOP&&ly>=L.y-HIT_SLOP&&ly<=L.y+L.h+HIT_SLOP){
-        best={p:activeIdx[a],l:li,t:t};bt=t;
+        /* overlapping slopped rects: prefer the link whose center is closest */
+        var d9=Math.abs(lx-(L.x+L.w/2))/Math.max(1,L.w)+Math.abs(ly-(L.y+L.h/2))/Math.max(1,L.h);
+        if(t<bt-1e-4||(Math.abs(t-bt)<=1e-4&&d9<bd)){
+          best={p:activeIdx[a],l:li,t:t};bt=t;bd=d9;
+        }
       }
     }
   }
@@ -1957,9 +1981,17 @@ hitlink.addEventListener('click',function(e){
     });
   }
 })();
+/* screen-space aim assist: fat fingers get a probe pattern, mice stay precise */
+function tapHit(cx,cy,fromTouch){
+  var h=hitTest(cx,cy);
+  if(h||!fromTouch)return h;
+  var pr=[[0,-10],[0,10],[-10,0],[10,0],[0,-20],[0,20],[-18,0],[18,0],[0,-28]];
+  for(var i=0;i<pr.length&&!h;i++)h=hitTest(cx+pr[i][0],cy+pr[i][1]);
+  return h;
+}
 function handleTap(cx,cy,fromTouch){
   if(navLock)return;
-  var h=hitTest(cx,cy);
+  var h=tapHit(cx,cy,fromTouch);
   var e={clientX:cx,clientY:cy};
   if(!h){
     var isTap=fromTouch||Date.now()-lastTouch<700;
