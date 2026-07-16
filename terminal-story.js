@@ -71,11 +71,9 @@ var ROUTES={
  ]},
  about:{label:'ABOUT',L:'story',R:'contact',tint:[0.40,0.95,0.58],css:['#5bff9e','#4be3a8','#b8ff5b'],beats:[
   {z:5, phase:'WHO WE ARE',panel:'aboutHero',look:[0,0.01,0,0.42,0]},
-  {z:11,id:'principles',phase:'PRINCIPLES 01·02',panel:'aboutA',look:[0.05,0,0.01,0,0]},
-  {z:17,phase:'PRINCIPLES 03·04',panel:'aboutB',look:[-0.05,0,-0.01,0,0]},
-  {z:23,phase:'PRINCIPLES 05·06',panel:'aboutC',look:[0.05,0,0.01,0,0]},
-  {z:29,phase:'THE BAR',panel:'aboutBar',look:[-0.05,0,-0.01,0,0]},
-  {z:35,phase:'JUNCTION',panel:'jAbout',look:[0,0.02,0,0.30,0]}
+  {z:11,phase:'HOW WE WORK',panel:'aboutA', look:[0.05,0,0.01,0,0]},
+  {z:17,id:'principles',phase:'PRINCIPLES', panel:'aboutB', look:[-0.05,0,-0.01,0,0]},
+  {z:23,phase:'JUNCTION',   panel:'jAbout', look:[0,0.02,0,0.30,0]}
  ]},
  story:{label:'OUR STORY',L:'about',R:'contact',tint:[1.0,0.80,0.48],css:['#ffd27b','#ffb35b','#ff8f5b'],beats:[
   {z:5, id:'belief',  phase:'THE BELIEF',       panel:'storyHero',    look:[0,0.01,0,0.3,0]},
@@ -1011,10 +1009,8 @@ function buildAtlas(){
    {id:'storyCreed',draw:(function(){var f=mkLog('THE CREED','We take responsibility\nfor what we build.',true,'A small, focused crew that ships work we can stand behind — systems that quietly do their job well, day after day.','CREW STATUS: RELENTLESS');return function(LW){var h=f(LW);var b1=button(44,h-16,'Book a consultation','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');button(44+b1+14,h-16,'Our principles →','about.html#principles','g');return h+56;};})(),hw:1.75},
    {id:'workCTA',draw:mkLog('NEXT SLOT','Want to be\nthe next one?',true,'One pod slot opens each quarter.','SLOT STATUS: OPEN'),hw:1.70},
    {id:'aboutHero',draw:mkBigLine('WHO WE ARE','The best software\nis built inside.',true,'Proximity beats process. Ownership beats advice.'),hw:1.85},
-   {id:'aboutA',draw:mkCards([['Ship weekly — or explain why','Momentum is the method. If a week passes without something you can click, we raise it ourselves — you never have to chase us.','01'],['Senior only','We don’t learn on your budget. Everyone here has built and run systems at real scale — and stays for the whole engagement. No bench, no swaps.','02']]),hw:1.35},
-   {id:'aboutB',draw:mkCards([['Leave you stronger','Success isn’t your dependence on us. We document and pair as we go, so your team owns and extends everything after we step away.','03'],['Price the outcome','Set packages, fixed prices, honest changes. You should never have to wonder what a week of our work is going to cost.','04']]),hw:1.35},
-   {id:'aboutC',draw:mkCards([['Production is the point','A demo isn’t done. Testing, reliability, monitoring, cost — the unglamorous last stretch is the actual job, and it’s the part we’re known for.','05'],['Say the true thing','If we’re the wrong tool for the job, we say so — even on the first call. We’d rather lose a contract than sell you something that won’t work.','06']]),hw:1.35},
-   {id:'aboutBar',draw:(function(){var f=mkLog('THE BAR WE HOLD','Principles are\nwhat you ship.',true,'Anyone can paint six nice lines on a billboard. We put ours in writing because clients hold us to them — every week, in the demo.','PRINCIPLES: ENFORCED WEEKLY');return function(LW){var h=f(LW);var b1=button(44,h-16,'Our story →','story.html','g');button(44+b1+14,h-16,'✉ Email us','mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&body=What%20I%27m%20trying%20to%20build:%0A%0A','p');return h+56;};})(),hw:1.75},
+   {id:'aboutA',draw:mkCards([['Ship weekly','…or explain why.','01'],['Senior only','No bench. Ever.','02'],['Leave you stronger','The muscle memory stays.','03']]),hw:1.35},
+   {id:'aboutB',draw:(function(){var f=mkCards([['Price the outcome','Not the hours.','04'],['Production is the point','Demos don’t count.','05'],['Say the true thing','Especially when it’s hard.','06']]);return function(LW){var h=f(LW);button(32,h-16,'Our story →','story.html','g');return h+56;};})(),hw:1.35},
    {id:'contactB',draw:bContact,hw:1.70},
    {id:'jHome',draw:mkJunction('work','product'),hw:1.35,lw:700,gate:true},
    {id:'jProduct',draw:mkJunction('work','contact'),hw:1.35,lw:700,gate:true},
@@ -1894,9 +1890,6 @@ function resize(){
   isMob=W<720;
   asp=W/H;
   glc.width=Math.round(W*dpr);glc.height=Math.round(H*dpr);
-  /* pin CSS size to the same numbers the ray math uses — iOS's dynamic
-     toolbar makes 100vh taller than innerHeight, which skewed every tap */
-  glc.style.width=W+'px';glc.style.height=H+'px';
   spacerScroll=Math.round(NB*H*2.45);
   document.getElementById('spacer').style.height=(H+spacerScroll)+'px';
   if(hint)hint.innerHTML=isMob?'Scroll to ride · tap a board to read <span class="arr">▼</span>'
@@ -3233,8 +3226,6 @@ var T3=(function(){
 
 /* ================= INIT ================= */
 window.addEventListener('resize',resize);
-/* iOS fires visualViewport resizes when the toolbar collapses/expands */
-if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
 /* auto-hide mouse cursor during keyboard/scroll interaction */
 (function(){
   var hideT;
@@ -3271,16 +3262,21 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   if(!(window.matchMedia&&matchMedia('(pointer: coarse)').matches))return;
   var st=document.createElement('style');
   st.textContent=
-    '#joy{position:fixed;right:14px;bottom:calc(64px + env(safe-area-inset-bottom,0px));width:112px;height:112px;z-index:8;touch-action:none;user-select:none;-webkit-user-select:none}'+
+    ':root{--joyd:clamp(88px,24vmin,120px)}'+
+    '#joy{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));width:var(--joyd);height:var(--joyd);z-index:8;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .6s}'+
+    '#joy.idle{opacity:.45}'+
+    '#joy.steer{opacity:1}'+
     '#joy .base{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--hud-dim);background:rgba(10,5,16,.38)}'+
-    '#joy .base::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px dashed var(--hud-dim)}'+
+    '#joy .base::after{content:"";position:absolute;inset:12.5%;border-radius:50%;border:1px dashed var(--hud-dim)}'+
     '#joy .a{position:absolute;font:700 11px "Space Mono",monospace;color:var(--hud);pointer-events:none}'+
     '#joy .ah{opacity:.28;transition:opacity .3s,color .3s}'+
     '#joy.steer .ah{opacity:1;color:#5bff9e;text-shadow:0 0 10px rgba(91,255,158,.8);animation:joy-pulse 1.4s infinite}'+
     '@keyframes joy-pulse{0%,100%{opacity:1}50%{opacity:.45}}'+
-    '#joy .knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--hud-ink),var(--b));box-shadow:0 0 16px var(--b);transition:transform .14s;pointer-events:none}'+
+    '#joy .knob{position:absolute;left:50%;top:50%;width:calc(var(--joyd)*.41);height:calc(var(--joyd)*.41);margin:calc(var(--joyd)*-.205) 0 0 calc(var(--joyd)*-.205);border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--hud-ink),var(--b));box-shadow:0 0 16px var(--b);transition:transform .14s;pointer-events:none}'+
     '#joy.live .knob{transition:none}'+
-    '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:var(--hud-dim);white-space:nowrap;pointer-events:none}';
+    '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:var(--hud-dim);white-space:nowrap;pointer-events:none}'+
+    /* lift toasts clear of the joystick so steer messages are never covered by it */
+    '#toast{bottom:calc(84px + var(--joyd) + env(safe-area-inset-bottom,0px))}';
   document.head.appendChild(st);
   var joy=document.createElement('div');joy.id='joy';
   joy.innerHTML='<div class="base"></div>'+
@@ -3291,16 +3287,38 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
     '<div class="knob"></div><div class="tag">RIDE</div>';
   document.body.appendChild(joy);
   var knob=joy.querySelector('.knob');
-  var R=38,nx=0,ny=0,active=false,armH=true,rafId=0;
+  var nx=0,ny=0,active=false,armH=true,rafId=0,idleT=0;
+  var hold=0.3,lastKb=-1;
   function setKnob(dx,dy){knob.style.transform='translate('+dx+'px,'+dy+'px)';}
+  function wake(){
+    joy.classList.remove('idle');clearTimeout(idleT);
+    idleT=setTimeout(function(){if(!active)joy.classList.add('idle');},3500);
+  }
   function loop(){
     if(active){
-      if(Math.abs(ny)>0.14)window.scrollBy(0,-ny*26);
+      /* quadratic response: fine control near center, fast at full push;
+         speed scales with viewport height so the ride feels the same in
+         portrait and landscape */
+      if(Math.abs(ny)>0.12){
+        var f=((window.scrollY||0)/Math.max(1,spacerScroll))*NB;
+        /* billboards sit at u≈0.985 of each beat — crossing one resets the
+           throttle so the ride pulls away slowly from every board */
+        var kb=Math.floor(f+0.015);
+        if(kb!==lastKb){if(lastKb!==-1)hold=0.3;lastKb=kb;}
+        hold+=(1-hold)*0.022;
+        /* brake as a board approaches: full speed far away, ~22% at the board */
+        var d=Math.abs(f-(Math.round(f-0.985)+0.985));
+        var t=Math.min(1,d/0.4);
+        var brake=0.22+0.78*(t*t*(3-2*t));
+        var v=ny*Math.abs(ny);
+        window.scrollBy(0,-v*Math.max(22,window.innerHeight*0.05)*hold*brake);
+      }
       rafId=requestAnimationFrame(loop);
     }
   }
   function upd(e){
     var r=joy.getBoundingClientRect();
+    var R=r.width*0.34;
     var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
     var m=Math.sqrt(dx*dx+dy*dy);if(m>R){dx*=R/m;dy*=R/m;}
     setKnob(dx,dy);nx=dx/R;ny=dy/R;
@@ -3314,15 +3332,16 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   joy.addEventListener('pointerdown',function(e){
     e.preventDefault();
     try{joy.setPointerCapture(e.pointerId);}catch(x){}
-    active=true;joy.classList.add('live');upd(e);
+    active=true;joy.classList.add('live');hold=0.3;lastKb=-1;wake();upd(e);
     cancelAnimationFrame(rafId);rafId=requestAnimationFrame(loop);
   });
   joy.addEventListener('pointermove',function(e){if(active)upd(e);});
-  function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;}
+  function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;wake();}
   joy.addEventListener('pointerup',jend);
   joy.addEventListener('pointercancel',jend);
   /* light the steer arrows only when steering is possible (at a junction) */
   setInterval(function(){joy.classList.toggle('steer',curBeat===NB-1&&!trans);},300);
+  wake();
 })();
 
 })();

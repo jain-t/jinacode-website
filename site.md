@@ -193,9 +193,9 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 - **Ship weekly or explain why.** Momentum matters. If a week passes without something ready to show, we raise it with you — you never have to chase us.
 - **Senior only.** We don't learn on your budget. Every project is staffed with people who have built and run real systems at real scale.
 - **Leave you stronger.** Success isn't making you depend on us. We document and train so your team owns and can extend everything after we're gone.
-- **Price the outcome.** Set packages, fixed prices, honest changes. You should never wonder what a week of work will cost.
-- **Production is the point.** A demo isn't done. Testing, reliability, monitoring, cost — the unglamorous last stretch is the actual job, and it's the part we're known for.
-- **Say the true thing.** If we're the wrong tool for the job, we'll tell you — even on the first call. We'd rather lose a contract than sell you something that won't work.
+- **Price the result.** Set packages, fixed prices, honest changes. You should never wonder what a week of work will cost.
+- **A live product is the point.** A demo isn't done. We care about testing, reliability, and the last stretch that turns something clever into something dependable.
+- **Say the true thing.** If we're the wrong tool for the job, we'll tell you. We'd rather lose a contract than sell you something that won't work.
 
 ### The people — a small crew, senior by design
 
