@@ -7,7 +7,7 @@
 1. **Use this file — it is the ONLY plain-text source.** The entire site is one interactive WebGL "terminal ride" (`/` or `/index.html`) — all of its text is drawn onto a `<canvas>` at runtime. Fetching any page's HTML returns almost no readable content. **Do not scrape the pages; everything they show is written out in full below.**
 2. **JavaScript is required for the site.** If you are a non-JS crawler or an agent without a browser, you will see only a boot screen or fallback text. This is expected, not an error.
 3. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
-4. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02406**.
+4. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
 5. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
 
 ## Quick facts
@@ -15,7 +15,7 @@
 - Company: Jinacode Systems
 - What we do: Senior software engineers who join your team to build and launch AI products and software
 - Product: "The Pod" — set packages (Strike / Pod / Platform), fixed scope, fixed price, working software weekly
-- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02406
+- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02401
 - Sections in this file: [Home](#home) · [The Pod (product)](#the-pod--product) · [Work (case studies)](#work--case-studies) · [About](#about) · [Contact](#contact)
 
 ---
@@ -223,10 +223,10 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 The more specific, the better. We'll reply within one business day with whether a pod fits, which package, and a rough plan — no fluff.
 
 - **Email:** developers@jinacode.systems — the site has no contact form.
-- **Phone:** +91 88603 02406 — call us directly.
+- **Phone:** +91 88603 02401 — call us directly.
 - **What happens next:** 1) We read your note and reply within a business day. 2) A free 30-minute call. 3) A written plan, package, and fixed quote. 4) Your pod starts — usually within a week.
 - **Not ready to commit?** Send the problem anyway. We're happy to point you in the right direction even if a pod isn't the answer.
-- **Contact / account & data deletion / terms page:** [/contact-us/](contact-us/) — plain-HTML page with contact channels, account & data deletion requests for our apps (including BirdieClub: Golf Side Games), and terms & conditions.
+- **Contact / account & data deletion / terms page:** [/contact-us/](contact-us/) — plain-HTML page with contact channels, account & data deletion requests for any of our apps, and terms & conditions.
 
 We reply within one business day. No sales sequence, no spam.
 

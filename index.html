@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- AI/LLM agents & crawlers: this page renders its content on a WebGL canvas — the HTML contains no readable text. The COMPLETE site text is at ./site.md (linked below as rel=alternate). Plain-HTML pages: product.html, work.html, about.html. Contact: mailto:developers@jinacode.systems or tel:+918860302406 -->
+<!-- AI/LLM agents & crawlers: this page renders its content on a WebGL canvas — the HTML contains no readable text. The COMPLETE site text is at ./site.md (linked below as rel=alternate). Plain-HTML pages: product.html, work.html, about.html. Contact: mailto:developers@jinacode.systems or tel:+918860302401 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jinacode Systems — Senior engineers who join your team and ship</title>
@@ -93,6 +93,19 @@ body.nocursor,body.nocursor *{cursor:none !important}
   .fxs{display:none}
 }
 
+/* ---------- big controls hint (post-boot) ---------- */
+#ctrl-hint{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .6s;font-family:var(--mono);background:radial-gradient(60% 55% at 50% 50%,rgba(5,2,8,.72) 0%,rgba(5,2,8,0) 78%)}
+#ctrl-hint.show{opacity:1}
+#ctrl-hint .ch-box{text-align:center}
+#ctrl-hint .ch-keys{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:26px}
+#ctrl-hint .key{width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:30px;color:#ffd9b8;border:2px solid rgba(255,170,110,.85);border-radius:12px;background:rgba(255,110,60,.1);box-shadow:0 0 26px rgba(255,106,61,.5),inset 0 -4px 0 rgba(255,140,80,.35);text-shadow:0 0 14px rgba(255,140,80,.9)}
+#ctrl-hint .key.up{animation:keyup 1.5s infinite}
+#ctrl-hint .key.down{animation:keydn 1.5s infinite .75s}
+@keyframes keyup{0%,100%{transform:translateY(0)}18%{transform:translateY(-7px)}36%{transform:translateY(0)}}
+@keyframes keydn{0%,100%{transform:translateY(0)}18%{transform:translateY(7px)}36%{transform:translateY(0)}}
+#ctrl-hint .ch-joy{font-size:52px;margin-bottom:20px;text-shadow:0 0 22px rgba(255,140,80,.9)}
+#ctrl-hint b{display:block;color:#ffd9b8;font-size:clamp(15px,2.6vw,20px);letter-spacing:.24em;text-transform:uppercase;text-shadow:0 0 18px rgba(247,148,63,.8);margin-bottom:12px}
+#ctrl-hint p{margin:0;color:var(--hud);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
 #boot{position:fixed;inset:0;z-index:40;background:#050208;display:flex;align-items:center;justify-content:center;transition:opacity .55s;font-family:var(--mono)}
 #boot .binner{width:min(560px,86vw)}
 #boot .bbrand{color:#ffd9b8;font-weight:700;letter-spacing:.18em;font-size:13px;margin-bottom:22px;text-shadow:0 0 16px rgba(247,148,63,.5)}
@@ -160,6 +173,14 @@ body.nocursor,body.nocursor *{cursor:none !important}
   <span class="sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
 </div>
 
+<div id="ctrl-hint" aria-hidden="true">
+  <div class="ch-box">
+    <div class="ch-keys" id="ch-kbd"><span class="key up">↑</span><span class="key down">↓</span></div>
+    <div class="ch-joy" id="ch-joy" style="display:none">🕹</div>
+    <b id="ch-title">Use the ↑ ↓ arrow keys</b>
+    <p id="ch-sub">to ride through the site · ← → steers at junctions · or just scroll</p>
+  </div>
+</div>
 <div id="toast" aria-live="polite"></div>
 <div id="fallback">
   <h2>This experience needs WebGL</h2>
