@@ -93,19 +93,26 @@ body.nocursor,body.nocursor *{cursor:none !important}
   .fxs{display:none}
 }
 
-/* ---------- big controls hint (post-boot) ---------- */
-#ctrl-hint{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .6s;font-family:var(--mono);background:radial-gradient(60% 55% at 50% 50%,rgba(5,2,8,.72) 0%,rgba(5,2,8,0) 78%)}
-#ctrl-hint.show{opacity:1}
-#ctrl-hint .ch-box{text-align:center}
-#ctrl-hint .ch-keys{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:26px}
-#ctrl-hint .key{width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:30px;color:#ffd9b8;border:2px solid rgba(255,170,110,.85);border-radius:12px;background:rgba(255,110,60,.1);box-shadow:0 0 26px rgba(255,106,61,.5),inset 0 -4px 0 rgba(255,140,80,.35);text-shadow:0 0 14px rgba(255,140,80,.9)}
+/* ---------- controls hint (post-boot), subtle card bottom-right ---------- */
+#ctrl-hint{position:fixed;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:30;pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s;font-family:var(--mono)}
+#ctrl-hint.show{opacity:1;transform:translateY(0)}
+#ctrl-hint .ch-box{display:flex;align-items:center;gap:14px;background:rgba(12,5,18,.88);border:1px solid rgba(255,170,110,.3);border-radius:12px;padding:12px 16px;box-shadow:0 0 22px rgba(255,106,61,.15)}
+#ctrl-hint .ch-keys{display:flex;gap:6px}
+#ctrl-hint .key{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#ffd9b8;border:1px solid rgba(255,170,110,.55);border-radius:7px;background:rgba(255,110,60,.08);box-shadow:inset 0 -2px 0 rgba(255,140,80,.25);text-shadow:0 0 8px rgba(255,140,80,.6)}
 #ctrl-hint .key.up{animation:keyup 1.5s infinite}
 #ctrl-hint .key.down{animation:keydn 1.5s infinite .75s}
-@keyframes keyup{0%,100%{transform:translateY(0)}18%{transform:translateY(-7px)}36%{transform:translateY(0)}}
-@keyframes keydn{0%,100%{transform:translateY(0)}18%{transform:translateY(7px)}36%{transform:translateY(0)}}
-#ctrl-hint .ch-joy{font-size:52px;margin-bottom:20px;text-shadow:0 0 22px rgba(255,140,80,.9)}
-#ctrl-hint b{display:block;color:#ffd9b8;font-size:clamp(15px,2.6vw,20px);letter-spacing:.24em;text-transform:uppercase;text-shadow:0 0 18px rgba(247,148,63,.8);margin-bottom:12px}
-#ctrl-hint p{margin:0;color:var(--hud);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+@keyframes keyup{0%,100%{transform:translateY(0)}18%{transform:translateY(-3px)}36%{transform:translateY(0)}}
+@keyframes keydn{0%,100%{transform:translateY(0)}18%{transform:translateY(3px)}36%{transform:translateY(0)}}
+#ctrl-hint .ch-joy{font-size:22px;text-shadow:0 0 12px rgba(255,140,80,.7)}
+#ctrl-hint b{display:block;color:#ffd9b8;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 0 10px rgba(247,148,63,.5);margin-bottom:3px}
+#ctrl-hint p{margin:0;color:var(--hud-dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+/* touch: the joystick owns the bottom-right corner — sit just above it */
+@media (pointer:coarse){
+  #ctrl-hint{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(96px + var(--joyd,100px) + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:680px){
+  #ctrl-hint .ch-box{padding:10px 13px;gap:11px}
+}
 #boot{position:fixed;inset:0;z-index:40;background:#050208;display:flex;align-items:center;justify-content:center;transition:opacity .55s;font-family:var(--mono)}
 #boot .binner{width:min(560px,86vw)}
 #boot .bbrand{color:#ffd9b8;font-weight:700;letter-spacing:.18em;font-size:13px;margin-bottom:22px;text-shadow:0 0 16px rgba(247,148,63,.5)}
@@ -177,8 +184,10 @@ body.nocursor,body.nocursor *{cursor:none !important}
   <div class="ch-box">
     <div class="ch-keys" id="ch-kbd"><span class="key up">↑</span><span class="key down">↓</span></div>
     <div class="ch-joy" id="ch-joy" style="display:none">🕹</div>
-    <b id="ch-title">Use the ↑ ↓ arrow keys</b>
-    <p id="ch-sub">to ride through the site · ← → steers at junctions · or just scroll</p>
+    <div class="ch-txt">
+      <b id="ch-title">Arrow keys to ride</b>
+      <p id="ch-sub">← → steer at junctions · or scroll</p>
+    </div>
   </div>
 </div>
 <div id="toast" aria-live="polite"></div>

@@ -2236,8 +2236,8 @@ function showCtrlHint(){
     if(kbd)kbd.style.display='none';
     if(joy)joy.style.display='block';
     var ti=document.getElementById('ch-title'),su=document.getElementById('ch-sub');
-    if(ti)ti.textContent='Ride with the joystick';
-    if(su)su.textContent='or just scroll · tap a board to read';
+    if(ti)ti.textContent='Joystick to ride';
+    if(su)su.textContent='or scroll · tap a board to read';
   }
   ctrlHintEl.classList.add('show');
   window.addEventListener('keydown',hideCtrlHint);
