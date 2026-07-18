@@ -226,6 +226,7 @@ The more specific, the better. We'll reply within one business day with whether 
 - **Phone:** +91 88603 02406 — call us directly.
 - **What happens next:** 1) We read your note and reply within a business day. 2) A free 30-minute call. 3) A written plan, package, and fixed quote. 4) Your pod starts — usually within a week.
 - **Not ready to commit?** Send the problem anyway. We're happy to point you in the right direction even if a pod isn't the answer.
+- **Contact / account & data deletion / terms page:** [/contact-us/](contact-us/) — plain-HTML page with contact channels, account & data deletion requests for our apps (including BirdieClub: Golf Side Games), and terms & conditions.
 
 We reply within one business day. No sales sequence, no spam.
 
