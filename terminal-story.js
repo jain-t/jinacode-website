@@ -3271,16 +3271,21 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   if(!(window.matchMedia&&matchMedia('(pointer: coarse)').matches))return;
   var st=document.createElement('style');
   st.textContent=
-    '#joy{position:fixed;right:14px;bottom:calc(64px + env(safe-area-inset-bottom,0px));width:112px;height:112px;z-index:8;touch-action:none;user-select:none;-webkit-user-select:none}'+
+    ':root{--joyd:clamp(88px,24vmin,120px)}'+
+    '#joy{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));width:var(--joyd);height:var(--joyd);z-index:8;touch-action:none;user-select:none;-webkit-user-select:none;transition:opacity .6s}'+
+    '#joy.idle{opacity:.45}'+
+    '#joy.steer{opacity:1}'+
     '#joy .base{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--hud-dim);background:rgba(10,5,16,.38)}'+
-    '#joy .base::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px dashed var(--hud-dim)}'+
+    '#joy .base::after{content:"";position:absolute;inset:12.5%;border-radius:50%;border:1px dashed var(--hud-dim)}'+
     '#joy .a{position:absolute;font:700 11px "Space Mono",monospace;color:var(--hud);pointer-events:none}'+
     '#joy .ah{opacity:.28;transition:opacity .3s,color .3s}'+
     '#joy.steer .ah{opacity:1;color:#5bff9e;text-shadow:0 0 10px rgba(91,255,158,.8);animation:joy-pulse 1.4s infinite}'+
     '@keyframes joy-pulse{0%,100%{opacity:1}50%{opacity:.45}}'+
-    '#joy .knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--hud-ink),var(--b));box-shadow:0 0 16px var(--b);transition:transform .14s;pointer-events:none}'+
+    '#joy .knob{position:absolute;left:50%;top:50%;width:calc(var(--joyd)*.41);height:calc(var(--joyd)*.41);margin:calc(var(--joyd)*-.205) 0 0 calc(var(--joyd)*-.205);border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--hud-ink),var(--b));box-shadow:0 0 16px var(--b);transition:transform .14s;pointer-events:none}'+
     '#joy.live .knob{transition:none}'+
-    '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:var(--hud-dim);white-space:nowrap;pointer-events:none}';
+    '#joy .tag{position:absolute;left:50%;transform:translateX(-50%);bottom:-17px;font:700 9px "Space Mono",monospace;letter-spacing:.2em;color:var(--hud-dim);white-space:nowrap;pointer-events:none}'+
+    /* lift toasts clear of the joystick so steer messages are never covered by it */
+    '#toast{bottom:calc(84px + var(--joyd) + env(safe-area-inset-bottom,0px))}';
   document.head.appendChild(st);
   var joy=document.createElement('div');joy.id='joy';
   joy.innerHTML='<div class="base"></div>'+
@@ -3291,16 +3296,38 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
     '<div class="knob"></div><div class="tag">RIDE</div>';
   document.body.appendChild(joy);
   var knob=joy.querySelector('.knob');
-  var R=38,nx=0,ny=0,active=false,armH=true,rafId=0;
+  var nx=0,ny=0,active=false,armH=true,rafId=0,idleT=0;
+  var hold=0.3,lastKb=-1;
   function setKnob(dx,dy){knob.style.transform='translate('+dx+'px,'+dy+'px)';}
+  function wake(){
+    joy.classList.remove('idle');clearTimeout(idleT);
+    idleT=setTimeout(function(){if(!active)joy.classList.add('idle');},3500);
+  }
   function loop(){
     if(active){
-      if(Math.abs(ny)>0.14)window.scrollBy(0,-ny*26);
+      /* quadratic response: fine control near center, fast at full push;
+         speed scales with viewport height so the ride feels the same in
+         portrait and landscape */
+      if(Math.abs(ny)>0.12){
+        var f=((window.scrollY||0)/Math.max(1,spacerScroll))*NB;
+        /* billboards sit at u≈0.985 of each beat — crossing one resets the
+           throttle so the ride pulls away slowly from every board */
+        var kb=Math.floor(f+0.015);
+        if(kb!==lastKb){if(lastKb!==-1)hold=0.3;lastKb=kb;}
+        hold+=(1-hold)*0.022;
+        /* brake as a board approaches: full speed far away, ~22% at the board */
+        var d=Math.abs(f-(Math.round(f-0.985)+0.985));
+        var t=Math.min(1,d/0.4);
+        var brake=0.22+0.78*(t*t*(3-2*t));
+        var v=ny*Math.abs(ny);
+        window.scrollBy(0,-v*Math.max(22,window.innerHeight*0.05)*hold*brake);
+      }
       rafId=requestAnimationFrame(loop);
     }
   }
   function upd(e){
     var r=joy.getBoundingClientRect();
+    var R=r.width*0.34;
     var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
     var m=Math.sqrt(dx*dx+dy*dy);if(m>R){dx*=R/m;dy*=R/m;}
     setKnob(dx,dy);nx=dx/R;ny=dy/R;
@@ -3314,15 +3341,16 @@ Promise.all(fl.map(function(f){return document.fonts.load(f);})).then(function()
   joy.addEventListener('pointerdown',function(e){
     e.preventDefault();
     try{joy.setPointerCapture(e.pointerId);}catch(x){}
-    active=true;joy.classList.add('live');upd(e);
+    active=true;joy.classList.add('live');hold=0.3;lastKb=-1;wake();upd(e);
     cancelAnimationFrame(rafId);rafId=requestAnimationFrame(loop);
   });
   joy.addEventListener('pointermove',function(e){if(active)upd(e);});
-  function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;}
+  function jend(){active=false;joy.classList.remove('live');setKnob(0,0);nx=ny=0;armH=true;wake();}
   joy.addEventListener('pointerup',jend);
   joy.addEventListener('pointercancel',jend);
   /* light the steer arrows only when steering is possible (at a junction) */
   setInterval(function(){joy.classList.toggle('steer',curBeat===NB-1&&!trans);},300);
+  wake();
 })();
 
 })();

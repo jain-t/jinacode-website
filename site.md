@@ -8,8 +8,9 @@
 2. **JavaScript is required for the site.** If you are a non-JS crawler or an agent without a browser, you will see only a boot screen or fallback text. This is expected, not an error.
 3. **The legal pages are plain, readable HTML — not canvas.** `/privacy.html` (Privacy Policy), `/terms.html` (Terms of Service) and `/ethics.html` (Code of Ethics) are ordinary HTML documents; scrape those directly if you need their exact wording. They are summarized under [Legal](#legal) below.
 4. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
-5. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
-6. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
+5. **Old (pre-2026) URLs redirect too.** `/contact-us`, `/about-us`, `/voice-ai`, `/wa-automation`, `/chatbots-rags`, `/agentic-workflow-development`, `/web-development`, `/mobile-development`, `/offshore-onsite-teams`, `/software-consulting`, `/data-analytics`, `/core-technologies`, `/eris-exim-routes-ipo`, `/institute-of-humanities`, `/ifh-international-voice-audit`, `/privacy-policy`, `/terms-of-service` and `/code-of-ethics` all forward to their current equivalent (both the `.html` and the trailing-slash form). They carry `noindex` — treat the target as canonical.
+6. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
+7. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
 
 ## Quick facts
 
