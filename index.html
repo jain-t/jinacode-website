@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- AI/LLM agents & crawlers: this page renders its content on a WebGL canvas — the HTML contains no readable text. The COMPLETE site text is at ./site.md (linked below as rel=alternate). Plain-HTML pages: product.html, work.html, about.html. Contact: mailto:developers@jinacode.systems or tel:+918860302401 -->
+<!-- AI/LLM agents & crawlers: this page renders its content on a WebGL canvas — the HTML contains no readable text. The COMPLETE site text is at ./site.md (linked below as rel=alternate). Plain-HTML pages: privacy.html, terms.html, ethics.html (fully readable legal pages); redirect stubs: product.html, work.html, about.html, story.html. Contact: mailto:developers@jinacode.systems or tel:+918860302406 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jinacode Systems — Senior engineers who join your team and ship</title>
@@ -30,20 +30,20 @@ body{overscroll-behavior-y:none;-webkit-user-select:none;user-select:none;-webki
 .hud{position:fixed;z-index:5;font-family:var(--mono);color:var(--hud);letter-spacing:.16em;font-size:11px;text-transform:uppercase;pointer-events:none;user-select:none}
 .hud a{pointer-events:auto;color:var(--hud);text-decoration:none;transition:color .2s,text-shadow .2s}
 .hud a:hover{color:#fff;text-shadow:0 0 12px rgba(255,106,61,.9)}
-#hud-tl{top:calc(20px + env(safe-area-inset-top,0px));left:calc(24px + env(safe-area-inset-left,0px));display:flex;align-items:center;gap:12px}
+#hud-tl{top:20px;left:24px;display:flex;align-items:center;gap:12px}
 #hud-tl .mark{display:flex;align-items:center;gap:10px}
 #hud-tl .mark b{font-weight:700;color:var(--hud-ink);text-shadow:0 0 14px rgba(247,148,63,.55)}
 #hud-tl .dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(120deg,var(--a),var(--c));box-shadow:0 0 10px var(--b);animation:pulse 2.2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
-#hud-tr{top:calc(20px + env(safe-area-inset-top,0px));right:calc(24px + env(safe-area-inset-right,0px));display:flex;gap:22px;align-items:center}
+#hud-tr{top:20px;right:24px;display:flex;gap:22px;align-items:center}
 #hud-tr a.cta{border:1px solid rgba(255,140,80,.5);padding:7px 14px;border-radius:8px;color:#ffd9b8;background:rgba(255,110,60,.07)}
 #hud-tr a.cta:hover{background:rgba(255,110,60,.18);border-color:rgba(255,170,110,.9)}
-#hud-bl{bottom:calc(20px + env(safe-area-inset-bottom,0px));left:calc(24px + env(safe-area-inset-left,0px));display:flex;align-items:center;gap:14px}
+#hud-bl{bottom:20px;left:24px;display:flex;align-items:center;gap:14px}
 #osd-ch{color:var(--hud-ink);text-shadow:0 0 12px rgba(255,106,61,.6);font-weight:700}
 #osd-name{color:var(--hud-dim)}
 .osd-flash{animation:osdf .5s steps(2) 2}
 @keyframes osdf{50%{opacity:.15}}
-#hud-br{bottom:calc(20px + env(safe-area-inset-bottom,0px));right:calc(24px + env(safe-area-inset-right,0px));display:flex;align-items:center;gap:14px}
+#hud-br{bottom:20px;right:24px;display:flex;align-items:center;gap:14px}
 #hint{transition:opacity .6s}
 #hint .arr{display:inline-block;animation:bob 1.6s infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
@@ -55,13 +55,13 @@ body{overscroll-behavior-y:none;-webkit-user-select:none;user-select:none;-webki
 .sig i:nth-child(3){height:10px;animation-delay:.3s}.sig i:nth-child(4){height:12px;animation-delay:.45s}
 @keyframes sig{0%,100%{opacity:.85}50%{opacity:.25}}
 .corner{position:fixed;width:22px;height:22px;z-index:4;pointer-events:none;opacity:.5}
-.corner.tl{top:calc(12px + env(safe-area-inset-top,0px));left:calc(12px + env(safe-area-inset-left,0px));border-top:1px solid var(--hud);border-left:1px solid var(--hud)}
-.corner.tr{top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));border-top:1px solid var(--hud);border-right:1px solid var(--hud)}
-.corner.bl{bottom:calc(12px + env(safe-area-inset-bottom,0px));left:calc(12px + env(safe-area-inset-left,0px));border-bottom:1px solid var(--hud);border-left:1px solid var(--hud)}
-.corner.br{bottom:calc(12px + env(safe-area-inset-bottom,0px));right:calc(12px + env(safe-area-inset-right,0px));border-bottom:1px solid var(--hud);border-right:1px solid var(--hud)}
+.corner.tl{top:12px;left:12px;border-top:1px solid var(--hud);border-left:1px solid var(--hud)}
+.corner.tr{top:12px;right:12px;border-top:1px solid var(--hud);border-right:1px solid var(--hud)}
+.corner.bl{bottom:12px;left:12px;border-bottom:1px solid var(--hud);border-left:1px solid var(--hud)}
+.corner.br{bottom:12px;right:12px;border-bottom:1px solid var(--hud);border-right:1px solid var(--hud)}
 
 /* ---------- FX switcher ---------- */
-.fxs{position:fixed;right:calc(24px + env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:6;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.fxs{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:6;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .fxs .tab{writing-mode:vertical-rl;color:var(--hud-dim);cursor:pointer;padding:10px 4px;border:1px solid rgba(255,170,110,.18);border-radius:8px;background:rgba(10,4,16,.6);backdrop-filter:blur(4px)}
 .fxs .list{display:none;position:absolute;right:26px;top:50%;transform:translateY(-50%);background:rgba(10,4,16,.92);border:1px solid rgba(255,170,110,.25);border-radius:10px;padding:10px;min-width:150px}
 .fxs:hover .list{display:block}
@@ -72,47 +72,14 @@ body{overscroll-behavior-y:none;-webkit-user-select:none;user-select:none;-webki
 #fallback{display:none;position:fixed;inset:0;z-index:50;background:#0b0614;color:#f5eee6;font-family:Inter,system-ui,sans-serif;padding:48px 24px;text-align:center}
 #fallback a{color:#ff6a3d}
 body.nocursor,body.nocursor *{cursor:none !important}
-/* mid-size / landscape phones: trim the top-left cluster so nav never collides with the brand */
-@media (max-width:900px){
-  #hud-tl .lbl,#hud-tl a{display:none}
-  #hud-tr{gap:16px}
-}
-/* touch devices ride with the joystick + toast — the persistent hint text would overlap #hud-bl */
-@media (pointer:coarse){
-  #hint{display:none}
-}
 @media (max-width:680px){
-  #hud-tl{gap:8px}
-  #hud-tl .mark{gap:8px}
-  #hud-tr{gap:10px;font-size:10px}
-  #hud-tr a:not(.cta){display:none}
-  #hud-tr a.cta{padding:6px 11px}
-  #hud-bl #osd-name{display:none}
-  #hint{display:none}
+  #hud-tr{gap:12px;font-size:10px}
+  #hud-tr a.mid{display:none}
+  #hud-tl .lbl,#hud-bl #osd-name{display:none}
   #prog{width:70px}
   .fxs{display:none}
 }
 
-/* ---------- controls hint (post-boot), subtle card bottom-right ---------- */
-#ctrl-hint{position:fixed;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:30;pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s;font-family:var(--mono)}
-#ctrl-hint.show{opacity:1;transform:translateY(0)}
-#ctrl-hint .ch-box{display:flex;align-items:center;gap:14px;background:rgba(12,5,18,.88);border:1px solid rgba(255,170,110,.3);border-radius:12px;padding:12px 16px;box-shadow:0 0 22px rgba(255,106,61,.15)}
-#ctrl-hint .ch-keys{display:flex;gap:6px}
-#ctrl-hint .key{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#ffd9b8;border:1px solid rgba(255,170,110,.55);border-radius:7px;background:rgba(255,110,60,.08);box-shadow:inset 0 -2px 0 rgba(255,140,80,.25);text-shadow:0 0 8px rgba(255,140,80,.6)}
-#ctrl-hint .key.up{animation:keyup 1.5s infinite}
-#ctrl-hint .key.down{animation:keydn 1.5s infinite .75s}
-@keyframes keyup{0%,100%{transform:translateY(0)}18%{transform:translateY(-3px)}36%{transform:translateY(0)}}
-@keyframes keydn{0%,100%{transform:translateY(0)}18%{transform:translateY(3px)}36%{transform:translateY(0)}}
-#ctrl-hint .ch-joy{font-size:22px;text-shadow:0 0 12px rgba(255,140,80,.7)}
-#ctrl-hint b{display:block;color:#ffd9b8;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 0 10px rgba(247,148,63,.5);margin-bottom:3px}
-#ctrl-hint p{margin:0;color:var(--hud-dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-/* touch: the joystick owns the bottom-right corner — sit just above it */
-@media (pointer:coarse){
-  #ctrl-hint{right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(96px + var(--joyd,100px) + env(safe-area-inset-bottom,0px))}
-}
-@media (max-width:680px){
-  #ctrl-hint .ch-box{padding:10px 13px;gap:11px}
-}
 #boot{position:fixed;inset:0;z-index:40;background:#050208;display:flex;align-items:center;justify-content:center;transition:opacity .55s;font-family:var(--mono)}
 #boot .binner{width:min(560px,86vw)}
 #boot .bbrand{color:#ffd9b8;font-weight:700;letter-spacing:.18em;font-size:13px;margin-bottom:22px;text-shadow:0 0 16px rgba(247,148,63,.5)}
@@ -125,7 +92,7 @@ body.nocursor,body.nocursor *{cursor:none !important}
 #fp{color:#ffd9b8;font-weight:700;border:1px solid rgba(255,170,110,.4);padding:3px 9px;border-radius:7px;background:rgba(255,120,70,.09);text-shadow:0 0 10px rgba(255,140,80,.5)}
 .fp-pop{animation:fpp .5s}
 @keyframes fpp{35%{transform:scale(1.3) rotate(-2deg)}70%{transform:scale(.96)}}
-#toast{position:fixed;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(14px);z-index:7;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--hud-ink);background:rgba(12,5,18,.9);border:1px solid var(--hud-dim);border-radius:10px;padding:10px 18px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;max-width:86vw;text-align:center;text-transform:uppercase;box-shadow:0 0 30px rgba(255,106,61,.25)}
+#toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%) translateY(14px);z-index:7;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--hud-ink);background:rgba(12,5,18,.9);border:1px solid var(--hud-dim);border-radius:10px;padding:10px 18px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;max-width:86vw;text-align:center;text-transform:uppercase;box-shadow:0 0 30px rgba(255,106,61,.25)}
 /* route-change color flash */
 #rflash{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;background:radial-gradient(120% 105% at 50% 62%,var(--b) 0%,transparent 58%)}
 #rflash.on{animation:rflash .85s ease-out}
@@ -150,7 +117,7 @@ body.nocursor,body.nocursor *{cursor:none !important}
 <body>
 
 <h1 class="sr">Jinacode Systems — Your hardest project, shipped. We join your team and build it with you.</h1>
-<p class="sr">Jinacode Systems places senior engineers inside your team — working in your code and your meetings, building AI products and software next to your people. Set packages with a fixed scope, a fixed price, and working software every week. Full text version: <a href="site.md">site.md</a> · <a href="product.html">Services</a> · <a href="work.html">Work</a> · <a href="about.html">About</a>.</p>
+<p class="sr">Jinacode Systems places senior engineers inside your team — working in your code and your meetings, building AI products and software next to your people. Set packages with a fixed scope, a fixed price, and working software every week. Full text version: <a href="site.md">site.md</a> · <a href="product.html">Services</a> · <a href="work.html">Work</a> · <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="ethics.html">Code of Ethics</a>.</p>
 
 <div id="boot"><div class="binner"><div class="bbrand">{ JINA <span>CODE</span> } MISSION CONTROL</div><pre></pre><div class="bbar"><i></i></div></div></div>
 <div id="spacer"></div>
@@ -161,7 +128,7 @@ body.nocursor,body.nocursor *{cursor:none !important}
 
 <nav class="hud" id="hud-tl" aria-label="Brand">
   <span class="mark"><span class="dot"></span><b>{ JINA CODE }</b></span>
-  <span class="lbl" style="color:var(--hud-dim)">TERMINAL v5</span> <a href="site.md" title="This site as markdown — for AI/LLMs" style="color:var(--hud)">[site.md]</a>
+  <span class="lbl" style="color:var(--hud-dim)">TERMINAL v5</span> <a href="site.md" title="This site as markdown — for AI/LLMs" style="color:var(--hud)">[site.md]</a> <a href="privacy.html" title="Privacy, terms &amp; code of ethics" style="color:var(--hud)">[legal]</a>
 </nav>
 <nav class="hud" id="hud-tr" aria-label="Primary">
   <a href="index.html">Home</a>
@@ -180,21 +147,12 @@ body.nocursor,body.nocursor *{cursor:none !important}
   <span class="sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
 </div>
 
-<div id="ctrl-hint" aria-hidden="true">
-  <div class="ch-box">
-    <div class="ch-keys" id="ch-kbd"><span class="key up">↑</span><span class="key down">↓</span></div>
-    <div class="ch-joy" id="ch-joy" style="display:none">🕹</div>
-    <div class="ch-txt">
-      <b id="ch-title">Arrow keys to ride</b>
-      <p id="ch-sub">← → steer at junctions · or scroll</p>
-    </div>
-  </div>
-</div>
 <div id="toast" aria-live="polite"></div>
 <div id="fallback">
   <h2>This experience needs WebGL</h2>
   <p>Your browser couldn't start the terminal ride. In Chrome this usually means graphics acceleration is off: Settings → System → “Use graphics acceleration when available”, then relaunch Chrome.</p>
   <p><a href="product.html">Services</a> · <a href="work.html">Work</a> · <a href="about.html">About</a> · <a href="mailto:developers@jinacode.systems?subject=Project%20enquiry%20-%20jinacode.systems&amp;body=What%20I%27m%20trying%20to%20build:%0A%0A">Contact</a> · <a href="site.md">site.md (full site text)</a></p>
+  <p style="font-size:14px;opacity:.7"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="ethics.html">Code of Ethics</a></p>
 </div>
 <noscript>
   <div style="position:fixed;inset:0;z-index:60;background:#0b0614;color:#f5eee6;font-family:sans-serif;padding:48px;text-align:center">

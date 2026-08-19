@@ -6,17 +6,18 @@
 
 1. **Use this file — it is the ONLY plain-text source.** The entire site is one interactive WebGL "terminal ride" (`/` or `/index.html`) — all of its text is drawn onto a `<canvas>` at runtime. Fetching any page's HTML returns almost no readable content. **Do not scrape the pages; everything they show is written out in full below.**
 2. **JavaScript is required for the site.** If you are a non-JS crawler or an agent without a browser, you will see only a boot screen or fallback text. This is expected, not an error.
-3. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
-4. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
-5. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
+3. **The legal pages are plain, readable HTML — not canvas.** `/privacy.html` (Privacy Policy), `/terms.html` (Terms of Service) and `/ethics.html` (Code of Ethics) are ordinary HTML documents; scrape those directly if you need their exact wording. They are summarized under [Legal](#legal) below.
+4. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
+5. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02406**.
+6. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
 
 ## Quick facts
 
 - Company: Jinacode Systems
 - What we do: Senior software engineers who join your team to build and launch AI products and software
 - Product: "The Pod" — set packages (Strike / Pod / Platform), fixed scope, fixed price, working software weekly
-- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02401
-- Sections in this file: [Home](#home) · [The Pod (product)](#the-pod--product) · [Work (case studies)](#work--case-studies) · [About](#about) · [Contact](#contact)
+- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02406
+- Sections in this file: [Home](#home) · [The Pod (product)](#the-pod--product) · [Work (case studies)](#work--case-studies) · [About](#about) · [Contact](#contact) · [Legal](#legal)
 
 ---
 
@@ -193,9 +194,9 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 - **Ship weekly or explain why.** Momentum matters. If a week passes without something ready to show, we raise it with you — you never have to chase us.
 - **Senior only.** We don't learn on your budget. Every project is staffed with people who have built and run real systems at real scale.
 - **Leave you stronger.** Success isn't making you depend on us. We document and train so your team owns and can extend everything after we're gone.
-- **Price the result.** Set packages, fixed prices, honest changes. You should never wonder what a week of work will cost.
-- **A live product is the point.** A demo isn't done. We care about testing, reliability, and the last stretch that turns something clever into something dependable.
-- **Say the true thing.** If we're the wrong tool for the job, we'll tell you. We'd rather lose a contract than sell you something that won't work.
+- **Price the outcome.** Set packages, fixed prices, honest changes. You should never wonder what a week of work will cost.
+- **Production is the point.** A demo isn't done. Testing, reliability, monitoring, cost — the unglamorous last stretch is the actual job, and it's the part we're known for.
+- **Say the true thing.** If we're the wrong tool for the job, we'll tell you — even on the first call. We'd rather lose a contract than sell you something that won't work.
 
 ### The people — a small crew, senior by design
 
@@ -223,12 +224,23 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 The more specific, the better. We'll reply within one business day with whether a pod fits, which package, and a rough plan — no fluff.
 
 - **Email:** developers@jinacode.systems — the site has no contact form.
-- **Phone:** +91 88603 02401 — call us directly.
+- **Phone:** +91 88603 02406 — call us directly.
 - **What happens next:** 1) We read your note and reply within a business day. 2) A free 30-minute call. 3) A written plan, package, and fixed quote. 4) Your pod starts — usually within a week.
 - **Not ready to commit?** Send the problem anyway. We're happy to point you in the right direction even if a pod isn't the answer.
-- **Contact / account & data deletion / terms page:** [/contact-us/](contact-us/) — plain-HTML page with contact channels, account & data deletion requests for any of our apps, and terms & conditions.
 
 We reply within one business day. No sales sequence, no spam.
+
+---
+
+## Legal
+
+Three plain-HTML documents, readable directly (no JavaScript or canvas required):
+
+- **[Privacy Policy](https://jinacode.systems/privacy.html)** — `/privacy.html`. What personal data the site collects (email, name, phone when you send them; usage data and cookies automatically), how it is used, retained, transferred, and deleted; children's privacy; third-party links. Last updated 29 July 2024.
+- **[Terms of Service](https://jinacode.systems/terms.html)** — `/terms.html`. Definitions, acknowledgment (18+), third-party links, termination, limitation of liability (the greater of amounts paid or USD 100), "as is" disclaimer, governing law (Haryana, India), informal dispute resolution. Last updated 29 July 2024.
+- **[Code of Ethics](https://jinacode.systems/ethics.html)** — `/ethics.html`. Nine principles drawn from Jain philosophy and applied to engineering practice: responsibility before speed (Ahimsa), client-centric stewardship (Seva), truth and transparency (Satya), data privacy and restraint (Aparigraha), engineering discipline (Tapasya), long-term ownership (Anitya), ethical innovation (Vivek), compliance and governance (Nyaya), and respect for people (Parasparopagraho Jivanam).
+
+Legal contact for all three: **developers@jinacode.systems** · **+91 88603 02406** · Jina Code Systems, Gurgaon, Haryana, India.
 
 ---
 
