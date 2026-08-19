@@ -8,7 +8,7 @@
 2. **JavaScript is required for the site.** If you are a non-JS crawler or an agent without a browser, you will see only a boot screen or fallback text. This is expected, not an error.
 3. **The legal pages are plain, readable HTML — not canvas.** `/privacy.html` (Privacy Policy), `/terms.html` (Terms of Service) and `/ethics.html` (Code of Ethics) are ordinary HTML documents; scrape those directly if you need their exact wording. They are summarized under [Legal](#legal) below.
 4. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
-5. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02406**.
+5. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
 6. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a visible "site.md" link, and is kept in sync with the HTML.
 
 ## Quick facts
@@ -16,7 +16,7 @@
 - Company: Jinacode Systems
 - What we do: Senior software engineers who join your team to build and launch AI products and software
 - Product: "The Pod" — set packages (Strike / Pod / Platform), fixed scope, fixed price, working software weekly
-- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02406
+- Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02401
 - Sections in this file: [Home](#home) · [The Pod (product)](#the-pod--product) · [Work (case studies)](#work--case-studies) · [About](#about) · [Contact](#contact) · [Legal](#legal)
 
 ---
@@ -224,7 +224,7 @@ We turned it into a set package so you don't have to gamble on a hire or manage 
 The more specific, the better. We'll reply within one business day with whether a pod fits, which package, and a rough plan — no fluff.
 
 - **Email:** developers@jinacode.systems — the site has no contact form.
-- **Phone:** +91 88603 02406 — call us directly.
+- **Phone:** +91 88603 02401 — call us directly.
 - **What happens next:** 1) We read your note and reply within a business day. 2) A free 30-minute call. 3) A written plan, package, and fixed quote. 4) Your pod starts — usually within a week.
 - **Not ready to commit?** Send the problem anyway. We're happy to point you in the right direction even if a pod isn't the answer.
 
@@ -240,7 +240,7 @@ Three plain-HTML documents, readable directly (no JavaScript or canvas required)
 - **[Terms of Service](https://jinacode.systems/terms.html)** — `/terms.html`. Definitions, acknowledgment (18+), third-party links, termination, limitation of liability (the greater of amounts paid or USD 100), "as is" disclaimer, governing law (Haryana, India), informal dispute resolution. Last updated 29 July 2024.
 - **[Code of Ethics](https://jinacode.systems/ethics.html)** — `/ethics.html`. Nine principles drawn from Jain philosophy and applied to engineering practice: responsibility before speed (Ahimsa), client-centric stewardship (Seva), truth and transparency (Satya), data privacy and restraint (Aparigraha), engineering discipline (Tapasya), long-term ownership (Anitya), ethical innovation (Vivek), compliance and governance (Nyaya), and respect for people (Parasparopagraho Jivanam).
 
-Legal contact for all three: **developers@jinacode.systems** · **+91 88603 02406** · Jina Code Systems, Gurgaon, Haryana, India.
+Legal contact for all three: **developers@jinacode.systems** · **+91 88603 02401** · Jina Code Systems, Gurgaon, Haryana, India.
 
 ---
 
