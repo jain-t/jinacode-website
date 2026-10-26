@@ -6,7 +6,7 @@
 
 1. **Use this file — it is the ONLY plain-text source.** The entire site is one interactive WebGL "terminal ride" (`/` or `/index.html`) — all of its text is drawn onto a `<canvas>` at runtime. Fetching any page's HTML returns almost no readable content. **Do not scrape the pages; everything they show is written out in full below.**
 2. **JavaScript is required for the site.** If you are a non-JS crawler or an agent without a browser, you will see only a boot screen or fallback text. This is expected, not an error.
-3. **The legal pages are plain, readable HTML — not canvas.** `/privacy.html` (Privacy Policy), `/terms.html` (Terms of Service) and `/ethics.html` (Code of Ethics) are ordinary HTML documents; scrape those directly if you need their exact wording. They are summarized under [Legal](#legal) below.
+3. **The legal pages are plain, readable HTML — not canvas.** `/privacy.html` (Privacy Policy), `/terms.html` (Terms of Service) `/ethics.html` (Code of Ethics) and `/workday.html` (Workday Policy) are ordinary HTML documents; scrape those directly if you need their exact wording. They are summarized under [Legal](#legal) below.
 4. **Every other URL is a redirect stub into the ride:** `/product.html` → `#/product`, `/work.html` → `#/work`, `/about.html` → `#/about`, `/story.html` → `#/story`, and `/case1.html` … `/case7.html` → `#/case1` … `#/case7`. Anchors carry over (e.g. `/product.html#tiers` → `#/product/tiers`). Their content is canvas-rendered too — it all appears in full in this file.
 5. **Old (pre-2026) URLs redirect too.** `/contact-us`, `/about-us`, `/voice-ai`, `/wa-automation`, `/chatbots-rags`, `/agentic-workflow-development`, `/web-development`, `/mobile-development`, `/offshore-onsite-teams`, `/software-consulting`, `/data-analytics`, `/core-technologies`, `/eris-exim-routes-ipo`, `/institute-of-humanities`, `/ifh-international-voice-audit`, `/privacy-policy`, `/terms-of-service` and `/code-of-ethics` all forward to their current equivalent (both the `.html` and the trailing-slash form). They carry `noindex` — treat the target as canonical.
 6. **There is no contact form.** Contact actions on the site open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
@@ -235,13 +235,15 @@ We reply within one business day. No sales sequence, no spam.
 
 ## Legal
 
-Three plain-HTML documents, readable directly (no JavaScript or canvas required):
+Four plain-HTML documents, readable directly (no JavaScript or canvas required):
 
 - **[Privacy Policy](https://jinacode.systems/privacy.html)** — `/privacy.html`. What personal data the site collects (email, name, phone when you send them; usage data and cookies automatically), how it is used, retained, transferred, and deleted; children's privacy; third-party links. Last updated 29 July 2024.
 - **[Terms of Service](https://jinacode.systems/terms.html)** — `/terms.html`. Definitions, acknowledgment (18+), third-party links, termination, limitation of liability (the greater of amounts paid or USD 100), "as is" disclaimer, governing law (Haryana, India), informal dispute resolution. Last updated 29 July 2024.
 - **[Code of Ethics](https://jinacode.systems/ethics.html)** — `/ethics.html`. Nine principles drawn from Jain philosophy and applied to engineering practice: responsibility before speed (Ahimsa), client-centric stewardship (Seva), truth and transparency (Satya), data privacy and restraint (Aparigraha), engineering discipline (Tapasya), long-term ownership (Anitya), ethical innovation (Vivek), compliance and governance (Nyaya), and respect for people (Parasparopagraho Jivanam).
 
-Legal contact for all three: **developers@jinacode.systems** · **+91 88603 02401** · Jina Code Systems, Gurgaon, Haryana, India.
+- **[Workday Policy](https://jinacode.systems/workday.html)** — `/workday.html`. When and where the team works: Monday to Friday, 10:00 am to 7:00 pm IST, at least 45 hours a week. Working from home is allowed depending on the project; some projects need onsite days, and the onsite policies of that site apply.
+
+Contact for all four: **developers@jinacode.systems** · **+91 88603 02401** · Jina Code Systems, Gurgaon, Haryana, India.
 
 ---
 
