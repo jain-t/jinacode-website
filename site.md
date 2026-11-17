@@ -128,7 +128,7 @@ Stack: Django · FastAPI · Postgres · Redis · Docker / K8s · Flutter · Swif
 
 ### 06 · E-invoicing & Peppol — building a Peppol e-invoicing stack? We can help.
 
-If you need to send and receive e-invoices over Peppol — as a business facing a mandate, a software vendor, or an access point provider — we build the stack with you. We already run one in production: PeppolBridge, live in five countries (UAE, Malaysia, Belgium, Oman, Qatar), with 40+ ERP connectors and 7 days from access to first live invoice.
+If you need to send and receive e-invoices over Peppol — as a business facing a mandate, a software vendor, or an access point provider — we build the stack with you. We already run one in production: PeppolBridge, live in five countries (UAE, Malaysia, Belgium, Oman, Qatar), with 200+ ERP connectors and 7 days from access to first live invoice.
 
 - Connectors from your ERP or accounting system to Peppol
 - One canonical invoice model, mapped to each country's format
@@ -179,7 +179,7 @@ A pod is a small team of senior engineers who join your company and deliver work
 **We run what we build.** Six products of our own, live with real users. They are where we prove our stack before it goes into client work.
 
 ### PeppolBridge — one bridge from any ERP to Peppol
-*E-invoicing · 40+ ERP connectors · 5 countries live · 7 days from access to first live invoice · https://peppolbridge.jinacode.systems*
+*E-invoicing · 200+ ERP connectors · 5 countries live · 7 days from access to first live invoice · https://peppolbridge.jinacode.systems*
 
 Every country's e-invoicing mandate hits the same wall: connecting each client's accounting system. PeppolBridge solves it once, with connectors feeding one canonical model and per-country rule packs. Live across UAE, Malaysia, Belgium, Oman and Qatar.
 
