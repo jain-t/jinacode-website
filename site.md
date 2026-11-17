@@ -6,7 +6,7 @@
 
 1. **Every page is plain, readable HTML.** No JavaScript is required to read any page. This file collects the same text in one place for convenience.
 2. **Pages:** `/` (home), `/services.html` (services portfolio), `/products.html` (products portfolio), `/work.html` (client case studies), `/about.html`, `/contact.html`, and the legal pages `/privacy.html`, `/terms.html`, `/ethics.html`.
-3. **Anchors:** services are at `/services.html#voice`, `#agentic`, `#rag`, `#wa`, `#webmobile`, `#einvoicing`, `#offshore`, and engagement models at `#tiers`. Products are at `/products.html#peppolbridge`, `#jinaconnect`, `#claudally`, `#gst365`. Case studies are at `/work.html#exim-routes`, `#ifh-voice-audit`, `#institute-of-humanities`.
+3. **Anchors:** services are at `/services.html#voice`, `#agentic`, `#rag`, `#wa`, `#webmobile`, `#einvoicing`, `#offshore`, and engagement models at `#tiers`. Products are at `/products.html#peppolbridge`, `#erp-connectors`, `#erp-swapper`, `#jinaconnect`, `#claudally`, `#gst365`. Case studies are at `/work.html#exim-routes`, `#ifh-voice-audit`, `#institute-of-humanities`.
 4. **Older URLs redirect.** `/product.html` → `/services.html` (anchors carry over), `/story.html` → `/about.html#story`, `/case1.html` … `/case7.html` → the matching case study or product, and the pre-2026 URLs (`/contact-us`, `/about-us`, `/voice-ai`, `/wa-automation`, `/chatbots-rags`, `/agentic-workflow-development`, `/web-development`, `/mobile-development`, `/offshore-onsite-teams`, `/software-consulting`, `/data-analytics`, `/core-technologies`, `/eris-exim-routes-ipo`, `/institute-of-humanities`, `/ifh-international-voice-audit`, `/privacy-policy`, `/terms-of-service`, `/code-of-ethics`) forward to their current equivalent in both `.html` and trailing-slash form. Redirect stubs carry `noindex` — treat the target as canonical.
 5. **There is no contact form.** Contact actions open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
 6. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a footer link, and is kept in sync with the HTML.
@@ -16,7 +16,7 @@
 - Company: Jinacode Systems — an AI-first engineering studio based in Gurgaon, India
 - What we do: design, build and run production AI systems (voice agents, agentic workflows, RAG) and the web and mobile platforms around them
 - Services: Voice AI · Agentic workflows · Chatbots & RAG · WhatsApp automation · Web & mobile platforms · E-invoicing & Peppol · Dedicated pods
-- Products: PeppolBridge · JinaConnect · Claudally · GST365
+- Products: PeppolBridge · ERP Connectors · ERP Swapper · JinaConnect · Claudally · GST365
 - Engagement: set packages (Strike / Pod / Platform), fixed scope, fixed price, working software weekly, senior engineers only
 - Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02401
 - Sections in this file: [Home](#home) · [Services](#services) · [Products](#products) · [Work](#work--client-case-studies) · [About](#about) · [Contact](#contact) · [Legal](#legal)
@@ -34,7 +34,7 @@ We design, build and run voice agents, agentic workflows and retrieval systems �
 **Key numbers**
 
 - **14 days** — to a first live release, typically
-- **4** — of our own products live in production
+- **6** — of our own products live in production
 - **5 countries** — running on our e-invoicing platform
 - **100%** — senior engineers; no juniors, ever
 
@@ -176,12 +176,22 @@ A pod is a small team of senior engineers who join your company and deliver work
 
 ## Products
 
-**We run what we build.** Four products of our own, live with real users. They are where we prove our stack before it goes into client work.
+**We run what we build.** Six products of our own, live with real users. They are where we prove our stack before it goes into client work.
 
 ### PeppolBridge — one bridge from any ERP to Peppol
 *E-invoicing · 40+ ERP connectors · 5 countries live · 7 days from access to first live invoice · https://peppolbridge.jinacode.systems*
 
 Every country's e-invoicing mandate hits the same wall: connecting each client's accounting system. PeppolBridge solves it once, with connectors feeding one canonical model and per-country rule packs. Live across UAE, Malaysia, Belgium, Oman and Qatar.
+
+### ERP Connectors — every ERP, one clean pipeline
+*Integration · 200+ ERPs and systems connected · 5 integration patterns · https://erp-connectors.jinacode.systems*
+
+Production connectors that pull documents out of any accounting system — cloud, on-prem or plain files — turn them into one canonical model, and write the status back into the ERP where accountants already work. Covers Tally, SAP Business One, Oracle NetSuite, Dynamics 365 Business Central, Xero, QuickBooks, Odoo, Zoho Books and more, plus universal channels (webhook, SFTP, CSV, on-prem edge agent).
+
+### ERP Swapper — leave your ERP, take everything
+*ERP migration · any ERP to any other · https://erp-swapper.jinacode.systems*
+
+Moves masters, balances, open documents and full transaction history from any ERP to any other, then proves the books still tie out. The source is only read; every swap goes extract → map → dry run → reconcile, and runs in either direction so there is no lock-in.
 
 ### JinaConnect — one API for WhatsApp, voice and chat
 *Open source · CPaaS · 5 channels behind one API · 13 MCP tools for AI agents · https://jinaconnect.jinacode.systems*
