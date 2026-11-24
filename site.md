@@ -260,10 +260,9 @@ Jinacode Systems is an engineering studio built on that one belief. Product engi
 
 ### The people — a small crew, senior by design
 
-**Founders**
+**Founder**
 
 - **Tapan Jain** — Founder · Chief Everything Officer. IIT Roorkee · ISB Hyderabad. Strategy, product direction, and long-term ownership — making sure what we build is thoughtful, scalable, and built to last.
-- **Amit Joshi** — Chief Operating Officer. IIT Roorkee. Quality and engineering culture — systems reviewed thoroughly, standards upheld, and teams accountable.
 
 **Advisors**
 
@@ -271,7 +270,7 @@ Jinacode Systems is an engineering studio built on that one belief. Product engi
 - **Prasun Mishra** — Data & AI. Chief Data & AI Officer at Tavant. Two decades taking enterprise AI from pilot to production at global scale.
 - **Shivhari Garg** — Finance. Chartered Accountant with 35+ years of practice. Audit frameworks and regulation, translated into system design.
 
-**The crew.** A small, senior-only core — the founders and advisors above, plus the senior engineers we deploy into every pod. No juniors, no bench.
+**The crew.** A small, senior-only core — the founder and advisors above, plus the senior engineers we deploy into every pod. No juniors, no bench.
 
 **Numbers:** 100% senior engineers · 14 days to first live release · 92% of clients come back · 1 call to find out if we fit.
 

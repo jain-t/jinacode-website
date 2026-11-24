@@ -9,7 +9,7 @@ The complete site text is one markdown file: [site.md](https://jinacode.systems/
 - [Services](https://jinacode.systems/services.html): Voice AI, agentic workflows, chatbots & RAG, WhatsApp automation, web & mobile, e-invoicing & Peppol, dedicated engineering pods
 - [Products](https://jinacode.systems/products.html): products we build and run
 - [Work](https://jinacode.systems/work.html): client case studies
-- [About](https://jinacode.systems/about.html): story, principles, founders and advisors
+- [About](https://jinacode.systems/about.html): story, principles, founder and advisors
 - [Contact](https://jinacode.systems/contact.html): developers@jinacode.systems · +91 88603 02401
 
 ## Careers
