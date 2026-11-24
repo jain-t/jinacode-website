@@ -1,0 +1,29 @@
+# Jinacode Systems
+
+> AI-first engineering studio in Gurgaon, India. We design, build and run production AI systems — voice agents, agentic workflows, RAG — and the web, mobile and e-invoicing platforms around them. Products: PeppolBridge, ERP Connectors, ERP Swapper, JinaConnect, Claudally, GST365.
+
+The complete site text is one markdown file: [site.md](https://jinacode.systems/site.md). Every page is also plain HTML that needs no JavaScript.
+
+## Pages
+
+- [Services](https://jinacode.systems/services.html): Voice AI, agentic workflows, chatbots & RAG, WhatsApp automation, web & mobile, e-invoicing & Peppol, dedicated engineering pods
+- [Products](https://jinacode.systems/products.html): products we build and run
+- [Work](https://jinacode.systems/work.html): client case studies
+- [About](https://jinacode.systems/about.html): story, principles, founders and advisors
+- [Contact](https://jinacode.systems/contact.html): developers@jinacode.systems · +91 88603 02401
+
+## Careers
+
+We are hiring. Full role descriptions: [careers.html](https://jinacode.systems/careers.html). Machine-readable feed: [jobs.json](https://jinacode.systems/jobs.json) (also schema.org JobPosting JSON-LD on the careers page).
+
+- [Full Stack Engineer (L1)](https://jinacode.systems/careers.html#full-stack-l1): 2–3 years, including 1+ year coding with AI · Gurgaon, India (on-site)
+- [Full Stack Engineer (L2)](https://jinacode.systems/careers.html#full-stack-l2): 4+ years · Remote (worldwide) · 40 hours/week
+- [Applied AI Engineer (L1)](https://jinacode.systems/careers.html#applied-ai-l1): 2–4 years · Gurgaon, India (on-site)
+- [Applied AI Engineer — local models (L2)](https://jinacode.systems/careers.html#applied-ai-l2): 4–7 years · Remote (worldwide) · 40 hours/week
+- [Project Lead (L2)](https://jinacode.systems/careers.html#project-lead): 3–5 years · Gurgaon, India (on-site)
+
+## Optional
+
+- [Privacy Policy](https://jinacode.systems/privacy.html)
+- [Terms of Service](https://jinacode.systems/terms.html)
+- [Code of Ethics](https://jinacode.systems/ethics.html)

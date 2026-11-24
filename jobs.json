@@ -1,0 +1,112 @@
+[
+  {
+    "title": "Full Stack Engineer (L1)",
+    "url": "https://jinacode.systems/careers.html#full-stack-l1",
+    "location": "Gurgaon, India (on-site)",
+    "postedAt": "2026-11-23",
+    "company": "Jinacode Systems",
+    "remote": false,
+    "level": "L1",
+    "experience": "2–3 years, including 1+ year coding with AI",
+    "employmentType": "Full-time",
+    "skills": [
+      "Python",
+      "React",
+      "TypeScript",
+      "Claude Code",
+      "Claude Code hooks",
+      "MCP",
+      "PostgreSQL"
+    ],
+    "apply": "https://docs.google.com/forms/d/e/1FAIpQLSeW61NjhPgHYVySyrbDRJ-nKRoGJ_ByQ9WWwGl7BO_s4dqY8w/viewform?usp=pp_url&entry.114720608=other",
+    "summary": "Build web apps, APIs and internal tools end to end in Python and React, and extend our Claude Code harness (hooks, skills, subagents, MCP servers). 2–3 years' experience with at least 1 year of daily AI-assisted coding. You must understand and be able to explain every line you ship, including code Claude Code wrote."
+  },
+  {
+    "title": "Full Stack Engineer (L2)",
+    "url": "https://jinacode.systems/careers.html#full-stack-l2",
+    "location": "Remote (worldwide)",
+    "postedAt": "2026-11-23",
+    "company": "Jinacode Systems",
+    "remote": true,
+    "level": "L2",
+    "experience": "4+ years",
+    "employmentType": "Full-time",
+    "hours": "40 hours/week",
+    "skills": [
+      "Python",
+      "React",
+      "TypeScript",
+      "System architecture",
+      "Claude Code",
+      "Cloud"
+    ],
+    "apply": "mailto:developers@jinacode.systems?subject=Application%20-%20Full%20Stack%20Engineer%20L2",
+    "summary": "Own the architecture of the platforms we build, lead technical decisions on client projects, own the team's Claude Code setup and mentor L1 engineers. 4+ years building and running production systems. You review a lot of AI-written code and must be able to spot when it is subtly wrong and explain why."
+  },
+  {
+    "title": "Applied AI Engineer (L1)",
+    "url": "https://jinacode.systems/careers.html#applied-ai-l1",
+    "location": "Gurgaon, India (on-site)",
+    "postedAt": "2026-11-23",
+    "company": "Jinacode Systems",
+    "remote": false,
+    "level": "L1",
+    "experience": "2–4 years",
+    "employmentType": "Full-time",
+    "skills": [
+      "Python",
+      "LangGraph",
+      "RAG",
+      "Vector databases",
+      "Evals",
+      "Claude Code",
+      "MCP"
+    ],
+    "apply": "mailto:developers@jinacode.systems?subject=Application%20-%20Applied%20AI%20Engineer%20L1",
+    "summary": "Build agentic workflows in LangGraph and production RAG pipelines (chunking, embeddings, hybrid retrieval, re-ranking), measured with evals, latency and cost tracking. 2–4 years of software engineering with at least one LLM system in or near production. You must be able to explain every part of what you build, including the parts Claude Code wrote."
+  },
+  {
+    "title": "Applied AI Engineer — local models (L2)",
+    "url": "https://jinacode.systems/careers.html#applied-ai-l2",
+    "location": "Remote (worldwide)",
+    "postedAt": "2026-11-23",
+    "company": "Jinacode Systems",
+    "remote": true,
+    "level": "L2",
+    "experience": "4–7 years",
+    "employmentType": "Full-time",
+    "hours": "40 hours/week",
+    "skills": [
+      "Fine-tuning",
+      "LoRA / QLoRA",
+      "Unsloth",
+      "Hugging Face",
+      "vLLM",
+      "Quantisation",
+      "On-prem deployment",
+      "Claude Code"
+    ],
+    "apply": "mailto:developers@jinacode.systems?subject=Application%20-%20Applied%20AI%20Engineer%20L2",
+    "summary": "Fine-tune open models (Llama, Qwen, Mistral, Gemma) with Unsloth, Hugging Face TRL and PEFT, and serve them with vLLM, TGI or llama.cpp — quantised and deployed on-prem, private cloud or air-gapped. 4–7 years of engineering with hands-on fine-tuning and model deployment. You must be able to explain your training and serving choices, not just that the run finished."
+  },
+  {
+    "title": "Project Lead (L2)",
+    "url": "https://jinacode.systems/careers.html#project-lead",
+    "location": "Gurgaon, India (on-site)",
+    "postedAt": "2026-11-23",
+    "company": "Jinacode Systems",
+    "remote": false,
+    "level": "L2",
+    "experience": "3–5 years",
+    "employmentType": "Full-time",
+    "skills": [
+      "Requirements gathering",
+      "Scoping",
+      "User stories",
+      "Delivery management",
+      "Claude Code"
+    ],
+    "apply": "mailto:developers@jinacode.systems?subject=Application%20-%20Project%20Lead%20L2",
+    "summary": "Run requirements gathering with clients, write scope documents and acceptance criteria, plan weekly releases and lead a pod of 2–3 engineers — using Claude Code to explore codebases, draft specs and check delivery against scope. 3–5 years in software delivery. You must understand what Claude Code tells you well enough to challenge it."
+  }
+]

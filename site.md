@@ -8,17 +8,19 @@
 2. **Pages:** `/` (home), `/services.html` (services portfolio), `/products.html` (products portfolio), `/work.html` (client case studies), `/about.html`, `/careers.html` (open roles), `/contact.html`, and the legal pages `/privacy.html`, `/terms.html`, `/ethics.html`.
 3. **Anchors:** services are at `/services.html#voice`, `#agentic`, `#rag`, `#wa`, `#webmobile`, `#einvoicing`, `#offshore`, and engagement models at `#tiers`. Products are at `/products.html#peppolbridge`, `#erp-connectors`, `#erp-swapper`, `#jinaconnect`, `#claudally`, `#gst365`. Case studies are at `/work.html#exim-routes`, `#ifh-voice-audit`, `#institute-of-humanities`.
 4. **Older URLs redirect.** `/product.html` → `/services.html` (anchors carry over), `/story.html` → `/about.html#story`, `/case1.html` … `/case7.html` → the matching case study or product, and the pre-2026 URLs (`/contact-us`, `/about-us`, `/voice-ai`, `/wa-automation`, `/chatbots-rags`, `/agentic-workflow-development`, `/web-development`, `/mobile-development`, `/offshore-onsite-teams`, `/software-consulting`, `/data-analytics`, `/core-technologies`, `/eris-exim-routes-ipo`, `/institute-of-humanities`, `/ifh-international-voice-audit`, `/privacy-policy`, `/terms-of-service`, `/code-of-ethics`) forward to their current equivalent in both `.html` and trailing-slash form. Redirect stubs carry `noindex` — treat the target as canonical.
-5. **There is no contact form.** Contact actions open email or the phone dialer. To reach the company, use **developers@jinacode.systems** or call **+91 88603 02401**.
-6. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a footer link, and is kept in sync with the HTML.
+5. **Contact.** `/contact.html#enquire` has an enquiry form; submitting it opens the visitor's email app, pre-filled and addressed to developers@jinacode.systems. To reach the company directly, email **developers@jinacode.systems** or call **+91 88603 02401**.
+6. **Jobs are machine-readable.** Open roles are at `/careers.html` (one anchor per role), as schema.org `JobPosting` JSON-LD on that page, and as a JSON feed at `/jobs.json` — an array of `{title, url, location, postedAt, company, remote, level, experience, hours (when set), skills, apply, summary}`. Job-search agents can read the feed directly.
+7. **`/llms.txt`** gives a short index of the site for LLMs, following the llms.txt convention.
+8. **This file is linked from every page** via `<link rel="alternate" type="text/markdown" href="site.md">` and a footer link, and is kept in sync with the HTML.
 
 ## Quick facts
 
-- Company: Jinacode Systems — an AI-first engineering studio based in Gurgaon, India
+- Company: Jinacode Systems (also written Jina Code Systems; website jinacode.systems) — an AI-first engineering studio based in Gurgaon (Gurugram), Haryana, India
 - What we do: design, build and run production AI systems (voice agents, agentic workflows, RAG) and the web and mobile platforms around them
 - Services: Voice AI · Agentic workflows · Chatbots & RAG · WhatsApp automation · Web & mobile platforms · E-invoicing & Peppol · Dedicated pods
 - Products: PeppolBridge · ERP Connectors · ERP Swapper · JinaConnect · Claudally · GST365
 - Engagement: set packages (Strike / Pod / Platform), fixed scope, fixed price, working software weekly, senior engineers only
-- Hiring: Full Stack Engineer (L1, L2), Applied AI Engineer (L1, L2), Project Lead (L2) — see /careers.html
+- Hiring: Full Stack Engineer (L1; L2 remote worldwide), Applied AI Engineer (L1; L2 remote worldwide), Project Lead (L2) — see /careers.html and /jobs.json
 - Contact: developers@jinacode.systems (replies within one business day) · phone: +91 88603 02401
 - Sections in this file: [Home](#home) · [Services](#services) · [Products](#products) · [Work](#work--client-case-studies) · [About](#about) · [Careers](#careers) · [Contact](#contact) · [Legal](#legal)
 
@@ -279,7 +281,7 @@ Jinacode Systems is an engineering studio built on that one belief. Product engi
 
 # Build with AI. Ship to production.
 
-We're a small crew building voice agents, agentic workflows, RAG systems and e-invoicing platforms for real clients. Claude Code isn't an experiment here — it's how we work every day. All roles are full-time in Gurgaon.
+We're a small crew building voice agents, agentic workflows, RAG systems and e-invoicing platforms for real clients. Claude Code isn't an experiment here — it's how we work every day. All roles are full-time. Full Stack Engineer L2 and Applied AI Engineer L2 are remote, open worldwide, at 40 hours/week; the other roles are on-site in Gurgaon. The same roles are available as a JSON feed at `/jobs.json`.
 
 ### How we work — AI writes code, you own it
 
@@ -288,7 +290,7 @@ We're a small crew building voice agents, agentic workflows, RAG systems and e-i
 - **Production is the point.** A demo isn't done. Tests, monitoring, cost and the unglamorous last stretch are the actual job.
 - **Understand what you ship.** We're not hiring people who can prompt an AI but can't explain the code it wrote. If you can't walk us through it, it isn't ready.
 
-### Full Stack Engineer · L1 — 2–3 years, 1+ year coding with AI
+### Full Stack Engineer · L1 — 2–3 years, 1+ year coding with AI · Gurgaon, on-site
 
 Build the web apps, APIs and internal tools behind our products and client work — and the Claude Code setup that makes the whole team faster.
 
@@ -297,7 +299,7 @@ Build the web apps, APIs and internal tools behind our products and client work 
 - **Understand what you ship.** Claude Code writes a lot of our code, but you own every line. We'll ask you to walk us through code you built with AI: why it's shaped that way, what would break it, and what you'd change.
 - **Apply:** [application form](https://docs.google.com/forms/d/e/1FAIpQLSeW61NjhPgHYVySyrbDRJ-nKRoGJ_ByQ9WWwGl7BO_s4dqY8w/viewform?usp=pp_url&entry.114720608=other)
 
-### Full Stack Engineer · L2 — 4+ years
+### Full Stack Engineer · L2 — 4+ years · Remote, worldwide · 40 hours/week
 
 Own the architecture of the platforms we build, and set how a pod of engineers works with Claude Code.
 
@@ -306,7 +308,7 @@ Own the architecture of the platforms we build, and set how a pod of engineers w
 - **Know when not to trust it.** You'll review a lot of AI-written code. We need you to spot when it's subtly wrong, explain why, and teach others to do the same.
 - **Apply:** email developers@jinacode.systems, subject "Application - Full Stack Engineer L2"
 
-### Applied AI Engineer · L1 — 2–4 years
+### Applied AI Engineer · L1 — 2–4 years · Gurgaon, on-site
 
 Build the AI systems we deliver to clients: agents that take action, retrieval that answers with citations, and the orchestration that keeps both reliable.
 
@@ -315,7 +317,7 @@ Build the AI systems we deliver to clients: agents that take action, retrieval t
 - **Understand what you build.** Getting an AI to write a RAG pipeline is easy. Knowing why retrieval failed on a particular query is the job.
 - **Apply:** email developers@jinacode.systems, subject "Application - Applied AI Engineer L1"
 
-### Applied AI Engineer · L2 (local models) — 4–7 years
+### Applied AI Engineer · L2 (local models) — 4–7 years · Remote, worldwide · 40 hours/week
 
 Own how we run models on our own and our clients' hardware: fine-tuning open models, serving them fast, and deploying them on-prem or air-gapped.
 
@@ -324,7 +326,7 @@ Own how we run models on our own and our clients' hardware: fine-tuning open mod
 - **Know why it works.** You should be able to explain your choices — this rank, this quantisation, this batch size — and what the numbers mean, not just that the run finished.
 - **Apply:** email developers@jinacode.systems, subject "Application - Applied AI Engineer L2"
 
-### Project Lead · L2 — 3–5 years
+### Project Lead · L2 — 3–5 years · Gurgaon, on-site
 
 Sit between the client and the build: turn what a client says into what the team ships, and keep delivery on track week to week.
 
